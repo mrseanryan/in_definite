@@ -13,6 +13,12 @@ use regex::Regex;
 ///
 /// assert_eq!("an", result);
 /// ```
+/// 
+/// ```
+/// let result = in_definite::get_a_or_an("unicorn");
+///
+/// assert_eq!("a", result);
+/// ```
 pub fn get_a_or_an(word: &str) -> &str
 {
     let mut is_an = is_naively_an(word);
