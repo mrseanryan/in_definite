@@ -26,8 +26,7 @@ struct Config {
     word: String,
 }
 
-impl Config
-{
+impl Config {
     fn new(args: &[String]) -> Result<Config, String> {
         if args.len() != 2 {
             let usage = "USAGE: ";
