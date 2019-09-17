@@ -26,9 +26,9 @@ pub fn get_a_or_an(word: &str) -> &str {
 
     if is_an(word) {
         return "an";
-    } else {
-        return "a";
     }
+    
+    "a"
 }
 
 /// Returns true if the given word should be used with 'an' (not 'a').
@@ -61,7 +61,7 @@ pub fn is_an(word: &str) -> bool {
         return is_an_for_acronym(word);
     }
 
-    return is_an_result;
+    is_an_result
 }
 
 fn is_naively_an(word: &str) -> bool {
@@ -200,12 +200,12 @@ fn is_exception(word: &str) -> bool {
         "yttric",
     ];
 
-    return exceptions.contains(&word);
+    exceptions.contains(&word)
 }
 
 fn is_acronym(word: &str) -> bool {
     let re = Regex::new(r"^[A-Z]+$").unwrap();
-    return re.is_match(word);
+    re.is_match(word)
 }
 
 // ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/acronyms.js
@@ -221,21 +221,21 @@ fn is_an_for_acronym(word: &str) -> bool {
     if both_or_neither(initial_vowel, is_irregular) {
         return false;
     }
-    return true;
+    true
 }
 
 fn both_or_neither(a: bool, b: bool) -> bool {
-    return a && b || !a && !b;
+    a && b || !a && !b
 }
 
 fn is_irregular_acronym(word: &str) -> bool {
     let re = Regex::new(r"^[UFHLMNRSX]").unwrap();
-    return re.is_match(word);
+    re.is_match(word)
 }
 
 fn starts_with_vowel(word: &str) -> bool {
     let re = Regex::new(r"^[aeiouAEIOU]").unwrap();
-    return re.is_match(word);
+    re.is_match(word)
 }
 
 // TODO numbers
