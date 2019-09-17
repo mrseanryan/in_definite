@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+  "in_definite",
+  "in_definite_cmd",
+]
