@@ -1,5 +1,18 @@
+//! # in_definite
+//!
+//! Get the indefinite article (a or an) for the given word.
+
 use regex::Regex;
 
+/// Get 'a' or 'an' to match the given word.
+///
+/// # Examples
+/// 
+/// ```
+/// let result = in_definite::get_a_or_an("alien");
+///
+/// assert_eq!("an", result);
+/// ```
 pub fn get_a_or_an(word: &str) -> &str
 {
     let mut is_an = is_naively_an(word);

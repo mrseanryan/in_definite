@@ -3,6 +3,7 @@ name = "in_definite"
 version = "0.1.0"
 authors = ["sean <str_ie@yahoo.co.uk>"]
 edition = "2018"
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
