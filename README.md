@@ -6,6 +6,8 @@ Get 'a' or 'an' to match the given word.
 ## Examples
 
 ```rust
+use in_definite;
+
 let result = in_definite::get_a_or_an("alien");
 assert_eq!("an", result);
 ```
@@ -13,4 +15,14 @@ assert_eq!("an", result);
 ```rust
 let result = in_definite::get_a_or_an("unicorn");
 assert_eq!("a", result);
+```
+
+```rust
+let result = in_definite::is_an("alien");
+assert_eq!(true, result);
+```
+
+```rust
+let result = in_definite::is_an("unicorn");
+assert_eq!(false, result);
 ```
