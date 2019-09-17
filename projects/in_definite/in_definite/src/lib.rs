@@ -243,6 +243,12 @@ mod tests {
     #[test]
     fn common_words() {
         assert_eq!("an", get_a_or_an("antelope"));
+        assert_eq!("an", get_a_or_an("apple"));
+        assert_eq!("a", get_a_or_an("pear"));
+
+        assert_eq!(true, is_an("antelope"));
+        assert_eq!(true, is_an("apple"));
+        assert_eq!(false, is_an("pear"));
     }
 
     macro_rules! tests {
@@ -252,6 +258,7 @@ mod tests {
             fn $name() {
                 let (input, expected) = $value;
                 assert_eq!(expected, get_a_or_an(input));
+                assert_eq!(expected == "an", is_an(input));
             }
         )*
         }
