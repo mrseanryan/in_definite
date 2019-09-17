@@ -240,19 +240,19 @@ mod tests {
     }
 
     tests! {
-        test_0: ("alien", "an"),
-        test_1: ("antelope", "an"),
-        test_2: ("EU", "an"),
-        test_3: ("FIFA", "an"),
-        test_4a: ("hair", "a"),
-        test_4b: ("heir", "an"),
-        test_4c: ("herb", "an"), // USA not UK
-        test_5: ("hotel", "a"),
-        test_6: ("MIA", "an"),
-        test_7: ("MNM", "an"),
-        test_8: ("UFO", "a"),
-        test_9: ("UN", "a"),
-        test_10: ("umbrella", "an"),
-        test_11: ("user", "a"),
+        test_ac1: ("EU", "an"),
+        test_ac2: ("FIFA", "an"),
+        test_ac3: ("MIA", "an"),
+        test_ac4: ("MNM", "an"),
+        test_ac5: ("UFO", "a"),
+        test_ac6: ("UN", "a"),
+        test_a1: ("alien", "an"),
+        test_a2: ("antelope", "an"),
+        test_h1: ("hair", "a"),
+        test_h2: ("heir", "an"),
+        test_h3: ("herb", "an"), // USA not UK
+        test_h4: ("hotel", "a"),
+        test_u1: ("umbrella", "an"),
+        test_u2: ("user", "a"),
     }
 }
