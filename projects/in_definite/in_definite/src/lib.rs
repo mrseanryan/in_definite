@@ -20,6 +20,10 @@ use regex::Regex;
 /// assert_eq!("a", result);
 /// ```
 pub fn get_a_or_an(word: &str) -> &str {
+    if word.len() == 0 {
+        return "";
+    }
+
     if is_an(word) {
         return "an";
     } else {
@@ -43,6 +47,10 @@ pub fn get_a_or_an(word: &str) -> &str {
 /// assert_eq!(false, result);
 /// ```
 pub fn is_an(word: &str) -> bool {
+    if word.len() == 0 {
+        return false;
+    }
+
     let mut is_an_result = is_naively_an(word);
 
     if is_exception(word) {
@@ -249,6 +257,12 @@ mod tests {
         assert_eq!(true, is_an("antelope"));
         assert_eq!(true, is_an("apple"));
         assert_eq!(false, is_an("pear"));
+    }
+
+    #[test]
+    fn zero_length() {
+        assert_eq!("", get_a_or_an(""));
+        assert_eq!(false, is_an(""));
     }
 
     macro_rules! tests {
