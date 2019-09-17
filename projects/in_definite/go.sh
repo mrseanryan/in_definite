@@ -1,1 +1,1 @@
-cargo run -p in_definite_cmd antelope
+cargo run -p in_definite_cmd $1 $2 $3
