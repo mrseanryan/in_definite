@@ -244,7 +244,9 @@ mod tests {
         test_1: ("antelope", "an"),
         test_2: ("EU", "an"),
         test_3: ("FIFA", "an"),
-        test_4: ("herb", "an"), // USA not UK
+        test_4a: ("hair", "a"),
+        test_4b: ("heir", "an"),
+        test_4c: ("herb", "an"), // USA not UK
         test_5: ("hotel", "a"),
         test_6: ("MIA", "an"),
         test_7: ("MNM", "an"),
