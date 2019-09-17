@@ -204,8 +204,7 @@ fn is_exception(word: &str) -> bool {
 }
 
 fn is_acronym(word: &str) -> bool {
-    let re = Regex::new(r"^[A-Z]+$").unwrap();
-    re.is_match(word)
+    is_match(word, r"^[A-Z]+$")
 }
 
 // ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/acronyms.js
@@ -229,12 +228,15 @@ fn both_or_neither(a: bool, b: bool) -> bool {
 }
 
 fn is_irregular_acronym(word: &str) -> bool {
-    let re = Regex::new(r"^[UFHLMNRSX]").unwrap();
-    re.is_match(word)
+    is_match(word, r"^[UFHLMNRSX]")
 }
 
 fn starts_with_vowel(word: &str) -> bool {
-    let re = Regex::new(r"^[aeiouAEIOU]").unwrap();
+    is_match(word, r"^[aeiouAEIOU]")
+}
+
+fn is_match(word: &str, regex: &str) -> bool {
+    let re = Regex::new(regex).unwrap();
     re.is_match(word)
 }
 
