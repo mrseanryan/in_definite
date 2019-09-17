@@ -20,21 +20,40 @@ use regex::Regex;
 /// assert_eq!("a", result);
 /// ```
 pub fn get_a_or_an(word: &str) -> &str {
-    let mut is_an = is_naively_an(word);
-
-    if is_exception(word) {
-        is_an = !is_an;
-    }
-
-    if is_acronym(word) {
-        return a_or_an_for_acronym(word);
-    }
-
-    if is_an {
+    if is_an(word) {
         return "an";
     } else {
         return "a";
     }
+}
+
+/// Returns true if the given word should be used with 'an' (not 'a').
+///
+/// # Examples
+///
+/// ```
+/// let result = in_definite::is_an("alien");
+///
+/// assert_eq!(true, result);
+/// ```
+///
+/// ```
+/// let result = in_definite::is_an("unicorn");
+///
+/// assert_eq!(false, result);
+/// ```
+pub fn is_an(word: &str) -> bool {
+    let mut is_an_result = is_naively_an(word);
+
+    if is_exception(word) {
+        is_an_result = !is_an_result;
+    }
+
+    if is_acronym(word) {
+        return is_an_for_acronym(word);
+    }
+
+    return is_an_result;
 }
 
 fn is_naively_an(word: &str) -> bool {
@@ -182,7 +201,7 @@ fn is_acronym(word: &str) -> bool {
 }
 
 // ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/acronyms.js
-fn a_or_an_for_acronym(word: &str) -> &str {
+fn is_an_for_acronym(word: &str) -> bool {
     let is_irregular = is_irregular_acronym(word);
     let initial_vowel = starts_with_vowel(word);
     /*
@@ -191,11 +210,10 @@ fn a_or_an_for_acronym(word: &str) -> &str {
      * If it starts with F, H, L, M, N, R, S, or X: "an"
      * If it starts with any other consonant: "a"
      */
-    let mut article = "an";
     if both_or_neither(initial_vowel, is_irregular) {
-        article = "a";
+        return false;
     }
-    return article;
+    return true;
 }
 
 fn both_or_neither(a: bool, b: bool) -> bool {
