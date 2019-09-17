@@ -1,11 +1,14 @@
+//! in_definite_cmd command line, mostly as a test harness for the in_definite library.
+
 use std::env;
 use std::process;
 
 use in_definite;
 
+/// Gets the indefinite article for the given word (1st argument)
 fn main() {
-    println!("= a or an =");
-    println!("===========");
+    println!("= in_definite =");
+    println!("===============");
 
     let args: Vec<String> = env::args().collect();
 
