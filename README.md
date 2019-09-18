@@ -33,3 +33,11 @@ assert_eq!(false, result);
 - Handles adverbs with '-ly' in a *generic* manner. Example: "a ubiquitously"
 
 A big thanks to the original authors of [indefinite](https://www.npmjs.com/package/indefinite)!
+
+## Published @ crates.io
+
+https://crates.io/crates/in_definite
+
+## licence = MIT
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
