@@ -116,7 +116,7 @@ pub fn is_an_options(word: &str, options: &Options) -> bool {
     }
 
     // TODO refactor to avoid duplication
-    if is_exception(word) || is_exception(strip_end(word, "s")) || is_exception(strip_end(word, "es")) || is_exception(strip_end(word, "ed")) {
+    if is_exception(word) || is_exception(strip_end(word, "s")) || is_exception(strip_end(word, "es")) || is_exception(strip_end(word, "ed")) || is_exception(strip_end(word, "ly")) {
         return !is_an_result;
     }
 
@@ -134,7 +134,7 @@ fn strip_end<'s>(word: &'s str, ending: &str) -> &'s str {
 fn get_first_word(word: &str) -> &str {
     let word = word.trim();
 
-    let words: Vec<&str> = word.split(|c: char| " ,.-;:".contains(c)).collect();
+    let words: Vec<&str> = word.split(|c: char| " ,.-;:'".contains(c)).collect();
 
     words[0]
 }
@@ -252,15 +252,7 @@ fn is_exception(word: &str) -> bool {
         "utilitarian",
         "utopic",
         // Adverbs: u like y
-        "ubiquitously",
-        "unanimously",
-        "unicamerally",
-        "uniquely",
-        "universally",
-        "urologically",
-        "usefully",
-        "uselessly",
-        "usuriously",
+        // (handled generically)
         // Nouns: y like i
         "yttria",
         "yggdrasil",
@@ -356,6 +348,7 @@ mod tests {
         assert_eq!("one", get_first_word("one two"));
         assert_eq!("one", get_first_word("one two three"));
         assert_eq!("one", get_first_word("one-two three"));
+        assert_eq!("heir", get_first_word("heir's"));
     }
 
     #[test]
@@ -448,6 +441,7 @@ mod tests {
         test_ny1000: ("1000", "a"),
         test_ny1800: ("1800", "a"),
         test_ny1892: ("1892", "a"),
+        ////////////////
         // other: words with spaces or hyphens, plurals etc.
         // 2 words
         test_other1: ("ouija board", "a"),
@@ -458,13 +452,24 @@ mod tests {
         // suffix
         test_other5: ("heavenly", "a"),
         test_other5b: ("hourly", "an"),
+        test_other5c: ("heirly", "an"),
         // plural
         test_other6: ("heiresses", "an"),
         test_other6b: ("heirs", "an"),
         test_other7: ("honors", "an"),
         // possessive
-        // TODO xxx fix - test_other8: ("heir's", "an"),
+        test_other8: ("heir's", "an"),
         test_other9: ("horror's", "a"),
+        // Adverbs: u like y
+        test_other_adv1: ("ubiquitously", "a"),
+        test_other_adv2: ("unanimously", "a"),
+        test_other_adv3: ("unicamerally", "a"),
+        test_other_adv4: ("uniquely", "a"),
+        test_other_adv5: ("universally", "a"),
+        test_other_adv6: ("urologically", "a"),
+        test_other_adv7: ("usefully", "a"),
+        test_other_adv8: ("uselessly", "a"),
+        test_other_adv9: ("usuriously", "a"),
     }
 
     tests_options_with_colloquial! {

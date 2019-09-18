@@ -29,4 +29,5 @@ assert_eq!(false, result);
 
 ## Devations from the original `indefinite`
 
-- Is always case sensitive. So, an word like THIS will be considered an acronymn.
+- Is always case sensitive. So, a word like THIS will be always considered to be an acronymn.
+- Handles adverbs with '-ly' in a *generic* manner. Example: "a ubiquitously"
