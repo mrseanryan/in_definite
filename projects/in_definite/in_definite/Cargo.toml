@@ -1,5 +1,6 @@
 [package]
 name = "in_definite"
+description = "Get the indefinite article ('a' or 'an') to match the given word."
 version = "0.1.0"
 authors = ["sean <str_ie@yahoo.co.uk>"]
 edition = "2018"
