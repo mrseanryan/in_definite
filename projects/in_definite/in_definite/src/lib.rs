@@ -26,6 +26,8 @@ impl Options {
 /// # Examples
 ///
 /// ```
+/// use in_definite;
+/// 
 /// let result = in_definite::get_a_or_an("alien");
 ///
 /// assert_eq!("an", result);
@@ -45,6 +47,8 @@ pub fn get_a_or_an(word: &str) -> &str {
 /// # Examples
 ///
 /// ```
+/// use in_definite;
+/// 
 /// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options::with_colloquial()); // 'eighteen hundred'
 ///
 /// assert_eq!("an", result);
@@ -72,6 +76,8 @@ pub fn get_a_or_an_options<'s>(word: &'s str, options: &Options) -> &'s str {
 /// # Examples
 ///
 /// ```
+/// use in_definite;
+/// 
 /// let result = in_definite::is_an("alien");
 ///
 /// assert_eq!(true, result);
@@ -91,6 +97,8 @@ pub fn is_an(word: &str) -> bool {
 /// # Examples
 ///
 /// ```
+/// use in_definite;
+/// 
 /// let result = in_definite::is_an_options("1800", &in_definite::Options::with_colloquial()); // 'eighteen hundred'
 ///
 /// assert_eq!(true, result);
