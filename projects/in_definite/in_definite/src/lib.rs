@@ -4,6 +4,16 @@
 
 use regex::Regex;
 
+pub struct Options {
+    are_numbers_colloquial: bool,
+}
+
+impl Options {
+    fn default() -> Options {
+        Options {are_numbers_colloquial: false}
+    }
+}
+
 /// Get 'a' or 'an' to match the given word.
 ///
 /// # Examples
@@ -20,15 +30,19 @@ use regex::Regex;
 /// assert_eq!("a", result);
 /// ```
 pub fn get_a_or_an(word: &str) -> &str {
+    get_a_or_an_options(word, &Options::default())
+}
+
+pub fn get_a_or_an_options<'s>(word: &'s str, options: &Options) -> &'s str {
     if word.len() == 0 {
         return "";
     }
 
-    if is_an(word) {
+    if is_an_options(word, options) {
         return "an";
     }
     
-    "a"
+    "a"    
 }
 
 /// Returns true if the given word should be used with 'an' (not 'a').
@@ -47,8 +61,16 @@ pub fn get_a_or_an(word: &str) -> &str {
 /// assert_eq!(false, result);
 /// ```
 pub fn is_an(word: &str) -> bool {
+    is_an_options(word, &Options::default())
+}
+
+pub fn is_an_options(word: &str, options: &Options) -> bool {
     if word.len() == 0 {
         return false;
+    }
+
+    if is_number(word) {
+        return is_an_for_number(word, options)
     }
 
     let mut is_an_result = is_naively_an(word);
@@ -240,8 +262,34 @@ fn is_match(word: &str, regex: &str) -> bool {
     re.is_match(word)
 }
 
-// TODO numbers
+// numbers
 // ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/numbers.js
+fn is_number(word: &str) -> bool {
+    is_match(word, r"^([0-9,]+)")
+}
+
+fn is_an_for_number(word: &str, options: &Options) -> bool {
+    let mut is_an = false;
+
+    if is_match(word, r"^(11|8|18)") {
+        let starts_with_11_or_18 = is_match(word, r"^(11|18)");
+
+        // If the number starts with 11 or 18 and is of length 4,
+        // the pronunciation is ambiguous so check opts.numbers to see
+        // how to render it. Otherwise, if it starts with 11 or 18
+        // and has 2, 5, 8, 11, etc. digits, use 'an.' Finally, if it
+        // starts with an 8, use 'an.' For everything else, use 'a.'
+        if starts_with_11_or_18 && word.len() == 4 {
+            is_an = options.are_numbers_colloquial;
+        } else if starts_with_11_or_18 && (word.len() - 2) % 3 == 0 {
+            is_an = true;
+        } else {
+            is_an = word.starts_with('8');
+        }
+    }
+
+    is_an
+}
 
 // TODO other
 // ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/other.js
@@ -280,6 +328,25 @@ mod tests {
         }
     }
 
+    fn options_with_colloquial() -> Options {
+        Options {are_numbers_colloquial: true}
+    }
+
+    macro_rules! tests_options_with_colloquial {
+        ($($name:ident: $value:expr,)*) => {
+        $(
+            #[test]
+            fn $name() {
+                let options = &(options_with_colloquial());
+
+                let (input, expected) = $value;
+                assert_eq!(expected, get_a_or_an_options(input, options));
+                assert_eq!(expected == "an", is_an_options(input, options));
+            }
+        )*
+        }
+    }
+
     tests! {
         test_ac1: ("EU", "an"),
         test_ac2: ("FIFA", "an"),
@@ -293,7 +360,56 @@ mod tests {
         test_h2: ("heir", "an"),
         test_h3: ("herb", "an"), // USA not UK
         test_h4: ("hotel", "a"),
+        // numbers
+        test_n0: ("0", "a"),
+        test_n1: ("1", "a"),
+        test_n2: ("2", "a"),
+        test_n3: ("3", "a"),
+        test_n4: ("4", "a"),
+        test_n5: ("5", "a"),
+        test_n6: ("6", "a"),
+        test_n7: ("7", "a"),
+        test_n8: ("8", "an"),
+        test_n9: ("9", "a"),
+        test_n10: ("10", "a"),
+        // numbers - years
+        test_ny1000: ("1000", "a"),
+        test_ny1800: ("1800", "a"),
+        test_ny1892: ("1892", "a"),
         test_u1: ("umbrella", "an"),
         test_u2: ("user", "a"),
+    }
+
+    tests_options_with_colloquial! {
+        test_colloquial_ac1: ("EU", "an"),
+        test_colloquial_ac2: ("FIFA", "an"),
+        test_colloquial_ac3: ("MIA", "an"),
+        test_colloquial_ac4: ("MNM", "an"),
+        test_colloquial_ac5: ("UFO", "a"),
+        test_colloquial_ac6: ("UN", "a"),
+        test_colloquial_a1: ("alien", "an"),
+        test_colloquial_a2: ("antelope", "an"),
+        test_colloquial_h1: ("hair", "a"),
+        test_colloquial_h2: ("heir", "an"),
+        test_colloquial_h3: ("herb", "an"), // USA not UK
+        test_colloquial_h4: ("hotel", "a"),
+        // numbers
+        test_colloquial_n0: ("0", "a"),
+        test_colloquial_n1: ("1", "a"),
+        test_colloquial_n2: ("2", "a"),
+        test_colloquial_n3: ("3", "a"),
+        test_colloquial_n4: ("4", "a"),
+        test_colloquial_n5: ("5", "a"),
+        test_colloquial_n6: ("6", "a"),
+        test_colloquial_n7: ("7", "a"),
+        test_colloquial_n8: ("8", "an"),
+        test_colloquial_n9: ("9", "a"),
+        test_colloquial_n10: ("10", "a"),
+        // numbers - years: with colluquial on, they are as read out loud: "an eighteen hundred"
+        test_colloquial_ny1000: ("1000", "a"),
+        test_colloquial_ny1800: ("1800", "an"),
+        test_colloquial_ny1892: ("1892", "an"),
+        test_colloquial_u1: ("umbrella", "an"),
+        test_colloquial_u2: ("user", "a"),
     }
 }
