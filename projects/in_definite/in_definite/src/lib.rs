@@ -378,8 +378,10 @@ mod tests {
     }
 
     tests! {
+        test_ac0: ("CEO", "a"),
         test_ac1: ("EU", "an"),
         test_ac2: ("FIFA", "an"),
+        test_ac2b: ("IOU", "an"),
         test_ac3: ("MIA", "an"),
         test_ac4: ("MNM", "an"),
         test_ac5: ("UFO", "a"),
@@ -390,6 +392,11 @@ mod tests {
         test_h2: ("heir", "an"),
         test_h3: ("herb", "an"), // USA not UK
         test_h4: ("hotel", "a"),
+        test_o0: ("ordinary", "an"),
+        test_o1: ("ouija", "a"),
+        test_u0: ("ukelele", "a"),
+        test_u1: ("umbrella", "an"),
+        test_u2: ("user", "a"),
         // numbers
         test_n0: ("0", "a"),
         test_n1: ("1", "a"),
@@ -406,8 +413,6 @@ mod tests {
         test_ny1000: ("1000", "a"),
         test_ny1800: ("1800", "a"),
         test_ny1892: ("1892", "a"),
-        test_u1: ("umbrella", "an"),
-        test_u2: ("user", "a"),
     }
 
     tests_options_with_colloquial! {
@@ -423,6 +428,8 @@ mod tests {
         test_colloquial_h2: ("heir", "an"),
         test_colloquial_h3: ("herb", "an"), // USA not UK
         test_colloquial_h4: ("hotel", "a"),
+        test_colloquial_u1: ("umbrella", "an"),
+        test_colloquial_u2: ("user", "a"),
         // numbers
         test_colloquial_n0: ("0", "a"),
         test_colloquial_n1: ("1", "a"),
@@ -439,7 +446,5 @@ mod tests {
         test_colloquial_ny1000: ("1000", "a"),
         test_colloquial_ny1800: ("1800", "an"),
         test_colloquial_ny1892: ("1892", "an"),
-        test_colloquial_u1: ("umbrella", "an"),
-        test_colloquial_u2: ("user", "a"),
     }
 }
