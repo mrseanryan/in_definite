@@ -27,7 +27,7 @@ let result = in_definite::is_an("unicorn");
 assert_eq!(false, result);
 ```
 
-## Devations from the original `indefinite`
+## Deviations from the original `indefinite`
 
 - Is always case sensitive. So, a word like THIS will be always considered to be an acronymn.
 - Handles adverbs with '-ly' in a *generic* manner. Example: "a ubiquitously"
