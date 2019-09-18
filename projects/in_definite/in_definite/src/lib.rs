@@ -103,21 +103,40 @@ pub fn is_an_options(word: &str, options: &Options) -> bool {
         return false;
     }
 
+    let word = get_first_word(word);
+
     if is_number(word) {
         return is_an_for_number(word, options)
     }
 
-    let mut is_an_result = is_naively_an(word);
-
-    if is_exception(word) {
-        is_an_result = !is_an_result;
-    }
+    let is_an_result = is_naively_an(word);
 
     if is_acronym(word) {
         return is_an_for_acronym(word);
     }
 
-    is_an_result
+    // TODO refactor to avoid duplication
+    if is_exception(word) || is_exception(strip_end(word, "s")) || is_exception(strip_end(word, "es")) || is_exception(strip_end(word, "ed")) {
+        return !is_an_result;
+    }
+
+    return is_an_result
+}
+
+fn strip_end<'s>(word: &'s str, ending: &str) -> &'s str {
+    if word.ends_with(ending) {
+        return &word[..(word.len() - ending.len())]
+    }
+
+    word
+}
+
+fn get_first_word(word: &str) -> &str {
+    let word = word.trim();
+
+    let words: Vec<&str> = word.split(|c: char| " ,.-;:".contains(c)).collect();
+
+    words[0]
 }
 
 fn is_naively_an(word: &str) -> bool {
@@ -333,6 +352,22 @@ mod tests {
     use super::*;
 
     #[test]
+    fn get_first_word_test() {
+        assert_eq!("one", get_first_word("one two"));
+        assert_eq!("one", get_first_word("one two three"));
+        assert_eq!("one", get_first_word("one-two three"));
+    }
+
+    #[test]
+    fn strip_end_test() {
+        assert_eq!("one", strip_end("ones", "s"));
+        assert_eq!("heir", strip_end("heir's", "'s"));
+        assert_eq!("hour", strip_end("houred", "ed"));
+        assert_eq!("hour", strip_end("hourly", "ly"));
+        assert_eq!("hour", strip_end("hour's", "'s"));
+    }
+
+    #[test]
     fn common_words() {
         assert_eq!("an", get_a_or_an("antelope"));
         assert_eq!("an", get_a_or_an("apple"));
@@ -413,6 +448,23 @@ mod tests {
         test_ny1000: ("1000", "a"),
         test_ny1800: ("1800", "a"),
         test_ny1892: ("1892", "a"),
+        // other: words with spaces or hyphens, plurals etc.
+        // 2 words
+        test_other1: ("ouija board", "a"),
+        // hyphenation
+        test_other2: ("apple-board", "an"),
+        test_other3: ("honor-bound", "an"),
+        test_other4: ("horror-bound", "a"),
+        // suffix
+        test_other5: ("heavenly", "a"),
+        test_other5b: ("hourly", "an"),
+        // plural
+        test_other6: ("heiresses", "an"),
+        test_other6b: ("heirs", "an"),
+        test_other7: ("honors", "an"),
+        // possessive
+        // TODO xxx fix - test_other8: ("heir's", "an"),
+        test_other9: ("horror's", "a"),
     }
 
     tests_options_with_colloquial! {

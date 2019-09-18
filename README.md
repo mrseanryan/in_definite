@@ -26,3 +26,7 @@ assert_eq!(true, result);
 let result = in_definite::is_an("unicorn");
 assert_eq!(false, result);
 ```
+
+## Devations from the original `indefinite`
+
+- Is always case sensitive. So, an word like THIS will be considered an acronymn.
