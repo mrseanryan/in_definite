@@ -1,6 +1,6 @@
 //! # in_definite
 //!
-//! Get the indefinite article (a or an) for the given word.
+//! Get the indefinite article ('a' or 'an') to match the given word. For example: an umbrella, a user.
 
 use regex::Regex;
 

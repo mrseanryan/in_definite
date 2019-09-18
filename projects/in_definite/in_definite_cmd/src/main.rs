@@ -5,7 +5,7 @@ use std::process;
 
 use in_definite;
 
-/// Gets the indefinite article for the given word (1st argument)
+/// Get the indefinite article ('a' or 'an') to match the given word. For example: an umbrella, a user.
 fn main() {
     println!("= in_definite =");
     println!("===============");

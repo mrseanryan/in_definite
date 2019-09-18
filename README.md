@@ -1,7 +1,7 @@
 # in_definite
-Rust port of [indefinite](https://www.npmjs.com/package/indefinite) on npm, for deciding when to use A or An.
+Rust port of [indefinite](https://www.npmjs.com/package/indefinite) on npm, for deciding which indefinite article to use ('a' or 'an').
 
-Get 'a' or 'an' to match the given word.
+Get the indefinite article ('a' or 'an') to match the given word. For example: an umbrella, a user.
 
 ## Examples
 
