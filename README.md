@@ -1,5 +1,5 @@
 # in_definite
-Rust port of [npm indefinite](https://www.npmjs.com/package/indefinite) for deciding when to use A or An.
+Rust port of [indefinite](https://www.npmjs.com/package/indefinite) on npm, for deciding when to use A or An.
 
 Get 'a' or 'an' to match the given word.
 
@@ -31,3 +31,5 @@ assert_eq!(false, result);
 
 - Is always case sensitive. So, a word like THIS will be always considered to be an acronymn.
 - Handles adverbs with '-ly' in a *generic* manner. Example: "a ubiquitously"
+
+A big thanks to the original authors of [indefinite](https://www.npmjs.com/package/indefinite)!
