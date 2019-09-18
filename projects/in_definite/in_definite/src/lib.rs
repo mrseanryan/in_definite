@@ -9,8 +9,12 @@ pub struct Options {
 }
 
 impl Options {
-    fn default() -> Options {
+    pub fn default() -> Options {
         Options {are_numbers_colloquial: false}
+    }
+
+    pub fn with_colloquial() -> Options {
+        Options {are_numbers_colloquial: true}
     }
 }
 
@@ -38,11 +42,13 @@ pub fn get_a_or_an(word: &str) -> &str {
 /// # Examples
 ///
 /// ```
-/// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options {are_numbers_colloquial: true}); // 'eighteen hundred'
+/// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options::with_colloquial()); // 'eighteen hundred'
 ///
 /// assert_eq!("an", result);
-///
-/// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options {are_numbers_colloquial: false}); // 'one thousand eight hundred'
+/// ```
+/// 
+/// ```
+/// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options::default()); // 'one thousand eight hundred'
 ///
 /// assert_eq!("a", result);
 /// ```
@@ -82,11 +88,13 @@ pub fn is_an(word: &str) -> bool {
 /// # Examples
 ///
 /// ```
-/// let result = in_definite::is_an_options("1800", &in_definite::Options {are_numbers_colloquial: true}); // 'eighteen hundred'
+/// let result = in_definite::is_an_options("1800", &in_definite::Options::with_colloquial()); // 'eighteen hundred'
 ///
 /// assert_eq!(true, result);
+/// ```
 ///
-/// let result = in_definite::is_an_options("1800", &in_definite::Options {are_numbers_colloquial: false}); // 'one thousand eight hundred'
+/// ```
+/// let result = in_definite::is_an_options("1800", &in_definite::Options::default()); // 'one thousand eight hundred'
 ///
 /// assert_eq!(false, result);
 /// ```
@@ -354,16 +362,12 @@ mod tests {
         }
     }
 
-    fn options_with_colloquial() -> Options {
-        Options {are_numbers_colloquial: true}
-    }
-
     macro_rules! tests_options_with_colloquial {
         ($($name:ident: $value:expr,)*) => {
         $(
             #[test]
             fn $name() {
-                let options = &(options_with_colloquial());
+                let options = &(Options::with_colloquial());
 
                 let (input, expected) = $value;
                 assert_eq!(expected, get_a_or_an_options(input, options));
