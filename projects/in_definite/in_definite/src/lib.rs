@@ -33,6 +33,19 @@ pub fn get_a_or_an(word: &str) -> &str {
     get_a_or_an_options(word, &Options::default())
 }
 
+/// Get 'a' or 'an' to match the given word, with options.
+///
+/// # Examples
+///
+/// ```
+/// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options {are_numbers_colloquial: true}); // 'eighteen hundred'
+///
+/// assert_eq!("an", result);
+///
+/// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options {are_numbers_colloquial: false}); // 'one thousand eight hundred'
+///
+/// assert_eq!("a", result);
+/// ```
 pub fn get_a_or_an_options<'s>(word: &'s str, options: &Options) -> &'s str {
     if word.len() == 0 {
         return "";
@@ -64,6 +77,19 @@ pub fn is_an(word: &str) -> bool {
     is_an_options(word, &Options::default())
 }
 
+/// Get 'a' or 'an' to match the given word, with options.
+///
+/// # Examples
+///
+/// ```
+/// let result = in_definite::is_an_options("1800", &in_definite::Options {are_numbers_colloquial: true}); // 'eighteen hundred'
+///
+/// assert_eq!(true, result);
+///
+/// let result = in_definite::is_an_options("1800", &in_definite::Options {are_numbers_colloquial: false}); // 'one thousand eight hundred'
+///
+/// assert_eq!(false, result);
+/// ```
 pub fn is_an_options(word: &str, options: &Options) -> bool {
     if word.len() == 0 {
         return false;
