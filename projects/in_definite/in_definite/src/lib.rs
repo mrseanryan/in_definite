@@ -5,7 +5,7 @@
 use regex::Regex;
 
 pub struct Options {
-    are_numbers_colloquial: bool,
+    pub are_numbers_colloquial: bool,
 }
 
 impl Options {
