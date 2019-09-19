@@ -34,9 +34,17 @@ impl Options {
 /// ```
 ///
 /// ```
+/// // Irregular word
 /// let result = in_definite::get_a_or_an("unicorn");
 ///
 /// assert_eq!("a", result);
+/// ```
+///
+/// ```
+/// // Title Case
+/// let result = in_definite::get_a_or_an("Ugly");
+///
+/// assert_eq!("An", result);
 /// ```
 pub fn get_a_or_an(word: &str) -> &str {
     get_a_or_an_options(word, &Options::default())
@@ -49,26 +57,69 @@ pub fn get_a_or_an(word: &str) -> &str {
 /// ```
 /// use in_definite;
 /// 
-/// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options::with_colloquial()); // 'eighteen hundred'
+/// // 'eighteen hundred'
+/// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options::with_colloquial());
 ///
 /// assert_eq!("an", result);
 /// ```
 /// 
 /// ```
-/// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options::default()); // 'one thousand eight hundred'
+/// // 'one thousand eight hundred'
+/// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options::default());
 ///
 /// assert_eq!("a", result);
+/// ```
+/// 
+/// ```
+/// // Title Case
+/// let result = in_definite::get_a_or_an_options("Ugly", &in_definite::Options::default());
+///
+/// assert_eq!("An", result);
 /// ```
 pub fn get_a_or_an_options<'s>(word: &'s str, options: &Options) -> &'s str {
     if word.len() == 0 {
         return "";
     }
 
-    if is_an_options(word, options) {
+    let is_an = is_an_options(word, options);
+    
+    a_or_an_capitalized_to_match(is_an, get_first_word(word)) 
+}
+
+fn a_or_an_capitalized_to_match(is_an: bool, first_word: &str) -> &str {  
+    let is_title_case = is_title_case(first_word);
+
+    if is_an {
+        if is_title_case {
+            return "An";
+        }
+
         return "an";
     }
-    
-    "a"    
+
+    if is_title_case {
+        return "A";
+    }
+
+    "a"
+}
+
+fn is_title_case(first_word: &str) -> bool {
+    starts_with_capital(first_word) && !remainder_has_capitals(first_word)
+}
+
+fn starts_with_capital(first_word: &str) -> bool {
+    is_capital_char(get_first_letter(first_word))
+}
+
+fn remainder_has_capitals(first_word: &str) -> bool {
+    let mut chars_iter = first_word.chars();
+    chars_iter.next();
+    chars_iter.any(|c| is_capital_char(c))
+}
+
+fn is_capital_char(c: char) -> bool {
+    'A' <= c && c <= 'Z'
 }
 
 /// Returns true if the given word should be used with 'an' (not 'a').
@@ -116,22 +167,30 @@ pub fn is_an_options(word: &str, options: &Options) -> bool {
 
     let word = get_first_word(word);
 
+    let word_lower = word.to_lowercase();
+
     if is_number(word) {
         return is_an_for_number(word, options)
     }
 
-    let is_an_result = is_naively_an(word);
+    let is_an_result = is_naively_an(&word_lower);
 
     if is_acronym(word) {
         return is_an_for_acronym(word);
     }
 
-    // TODO refactor to avoid duplication
-    if is_exception(word) || is_exception(strip_end(word, "s")) || is_exception(strip_end(word, "es")) || is_exception(strip_end(word, "ed")) || is_exception(strip_end(word, "ly")) {
+    if is_exception(&word_lower) || is_exception_after_strip(&word_lower) {
         return !is_an_result;
     }
 
-    return is_an_result
+    is_an_result
+}
+
+fn is_exception_after_strip(word_lower: &str) -> bool {
+    // into_iter(): 
+    // book: Rust 2018 says: If we want to create an iterator that takes ownership of v1 and returns owned values, we can call into_iter instead of iter. 
+    ["s", "es", "ed", "ly"].into_iter().map(|ending| strip_end(&word_lower, ending))
+        .any(|stripped| is_exception(stripped))
 }
 
 fn strip_end<'s>(word: &'s str, ending: &str) -> &'s str {
@@ -150,14 +209,12 @@ fn get_first_word(word: &str) -> &str {
     words[0]
 }
 
+fn get_first_letter(word: &str) -> char {
+    word.chars().next().unwrap()
+}
+
 fn is_naively_an(word: &str) -> bool {
-    let first_letter = word.to_lowercase().chars().next().unwrap();
-
-    if "aeiou".contains(first_letter) {
-        return true;
-    }
-
-    false
+    "aeiou".contains(get_first_letter(word))
 }
 
 fn is_exception(word: &str) -> bool {
@@ -347,12 +404,25 @@ fn is_an_for_number(word: &str, options: &Options) -> bool {
     is_an
 }
 
-// TODO other
-// ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/other.js
-
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_or_an_capitalized_to_match_test() {
+        // Title case - should match
+        assert_eq!("An", a_or_an_capitalized_to_match(true, "Ugly"));
+        assert_eq!("A", a_or_an_capitalized_to_match(false, "Leopard"));
+        // lower case - do nothing
+        assert_eq!("an", a_or_an_capitalized_to_match(true, "ugly"));
+        assert_eq!("a", a_or_an_capitalized_to_match(false, "leopard"));
+        // MiXed case - do nothing
+        assert_eq!("an", a_or_an_capitalized_to_match(true, "UgLy"));
+        assert_eq!("a", a_or_an_capitalized_to_match(false, "lEoparD"));
+        // UPPER case - do nothing (acronym)
+        assert_eq!("an", a_or_an_capitalized_to_match(true, "FIFA"));
+        assert_eq!("a", a_or_an_capitalized_to_match(false, "UN"));
+    }
 
     #[test]
     fn get_first_word_test() {
@@ -395,7 +465,7 @@ mod tests {
             fn $name() {
                 let (input, expected) = $value;
                 assert_eq!(expected, get_a_or_an(input));
-                assert_eq!(expected == "an", is_an(input));
+                assert_eq!(expected.to_lowercase() == "an", is_an(input));
             }
         )*
         }
@@ -410,7 +480,7 @@ mod tests {
 
                 let (input, expected) = $value;
                 assert_eq!(expected, get_a_or_an_options(input, options));
-                assert_eq!(expected == "an", is_an_options(input, options));
+                assert_eq!(expected.to_lowercase() == "an", is_an_options(input, options));
             }
         )*
         }
@@ -452,6 +522,13 @@ mod tests {
         test_ny1000: ("1000", "a"),
         test_ny1800: ("1800", "a"),
         test_ny1892: ("1892", "a"),
+        // Mixed case
+        test_mc1: ("Alien", "An"), // Title Case
+        test_mc2: ("anteLoPe", "an"), // mixed case
+        test_mc3: ("haiR", "a"), // mixed case
+        test_mc4: ("HEIR", "an"), // acronym 'h -> an'
+        test_mc5: ("Heir", "An"), // Title Case, irregular
+        test_mc6: ("Ugly", "An"), // Title Case
         ////////////////
         // other: words with spaces or hyphens, plurals etc.
         // 2 words
