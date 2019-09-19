@@ -29,7 +29,11 @@ assert_eq!(false, result);
 
 ## Deviations from the original `indefinite`
 
-- Is always case sensitive. So, a word like THIS will be always considered to be an acronymn.
+Is always case sensitive: 
+- a word like THIS will be always considered to be an acronymn. 
+- normally the result is lower case ('a' or 'an')
+- title case is handled: 'Ugly' -> 'An'
+
 - Handles adverbs with '-ly' in a *generic* manner. Example: "a ubiquitously"
 
 A big thanks to the original authors of [indefinite](https://www.npmjs.com/package/indefinite)!
