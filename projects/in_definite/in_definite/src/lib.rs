@@ -518,10 +518,63 @@ mod tests {
         test_n8: ("8", "an"),
         test_n9: ("9", "a"),
         test_n10: ("10", "a"),
+        test_n11: ("11", "an"),
+        test_n12: ("12", "a"),
+        test_n13: ("13", "a"),
+        test_n14: ("14", "a"),
+        test_n15: ("15", "a"),
+        test_n16: ("16", "a"),
+        test_n17: ("17", "a"),
+        test_n18: ("18", "an"),
+        test_n19: ("19", "a"),
+        test_n20: ("20", "a"),
         // numbers - years
         test_ny1000: ("1000", "a"),
         test_ny1800: ("1800", "a"),
         test_ny1892: ("1892", "a"),
+        // starting with 11
+        test_n11_01: ("11", "an"),
+        test_n11_02: ("110", "a"),
+        test_n11_03: ("1100", "a"), // 'one thousand one hundred'
+        test_n11_04: ("11000", "an"),
+        test_n11_05: ("110000", "a"),
+        test_n11_06: ("1100000", "a"),
+        test_n11_07: ("11000000", "an"),
+        test_n11_08: ("110000000", "a"),
+        test_n11_09: ("1100000000", "a"),
+        test_n11_10: ("11000000000", "an"),
+        test_n11_11: ("110000000000", "a"),
+        test_n11_12: ("1100000000000", "a"),
+        test_n11_13: ("11000000000000", "an"),
+        test_n11_14: ("110000000000000", "a"),
+        test_n11_15: ("1100000000000000", "a"),
+        test_n11_16: ("11000000000000000", "an"),
+        // starting with 18
+        test_ns18_01: ("18", "an"),
+        test_ns18_02: ("180", "a"),
+        test_ns18_03: ("18000", "an"),
+        test_ns18_04: ("180000", "a"),
+        test_ns18_05: ("1800000", "a"),
+        test_ns18_06: ("18000000", "an"),
+        test_ns18_07: ("180000000", "a"),
+        test_ns18_08: ("1800000000", "a"),
+        test_ns18_09: ("18000000000", "an"),
+        test_ns18_10: ("180000000000", "a"),
+        test_ns18_11: ("1800000000000", "a"),
+        test_ns18_12: ("18000000000000", "an"),
+        test_ns18_13: ("180000000000000", "a"),
+        test_ns18_14: ("1800000000000000", "a"),
+        test_ns18_15: ("18000000000000000", "an"),
+        // starting with 8
+        test_n8_01: ("8", "an"),
+        test_n8_02: ("80", "an"),
+        test_n8_03: ("800", "an"),
+        test_n8_04: ("8000", "an"),
+        test_n8_05: ("80000", "an"),
+        test_n8_06: ("800000", "an"),
+        test_n8_07: ("8000000", "an"),
+        test_n8_08: ("80000000", "an"),
+        test_n8_09: ("800000000", "an"),
         // Mixed case
         test_mc1: ("Alien", "An"), // Title Case
         test_mc2: ("anteLoPe", "an"), // mixed case
@@ -588,7 +641,8 @@ mod tests {
         test_colloquial_n9: ("9", "a"),
         test_colloquial_n10: ("10", "a"),
         // numbers - years: with colluquial on, they are as read out loud: "an eighteen hundred"
-        test_colloquial_ny1000: ("1000", "a"),
+        test_colloquial_ny1000: ("1000", "a"), // 'ten hundred'
+        test_colloquial_ny1100: ("1100", "an"), // 'eleven hundred'
         test_colloquial_ny1800: ("1800", "an"),
         test_colloquial_ny1892: ("1892", "an"),
     }
