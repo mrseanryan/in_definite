@@ -489,14 +489,17 @@ mod tests {
     tests! {
         test_ac0: ("CEO", "a"),
         test_ac1: ("EU", "an"),
-        test_ac2: ("FIFA", "an"),
-        test_ac2b: ("IOU", "an"),
+        test_ac2a: ("FFA", "an"),
+        test_ac2b: ("FIFA", "an"),
+        test_ac2c: ("IOU", "an"),
         test_ac3: ("MIA", "an"),
         test_ac4: ("MNM", "an"),
         test_ac5: ("UFO", "a"),
         test_ac6: ("UN", "a"),
         test_a1: ("alien", "an"),
-        test_a2: ("antelope", "an"),
+        test_a2a: ("antelope", "an"),
+        test_a2b: ("apple", "an"),
+        test_a2c: ("banana", "a"),
         test_h1: ("hair", "a"),
         test_h2: ("heir", "an"),
         test_h3: ("herb", "an"), // USA not UK
@@ -591,9 +594,10 @@ mod tests {
         test_other3: ("honor-bound", "an"),
         test_other4: ("horror-bound", "a"),
         // suffix
-        test_other5: ("heavenly", "a"),
-        test_other5b: ("hourly", "an"),
-        test_other5c: ("heirly", "an"),
+        test_other_s1: ("heavenly", "a"),
+        test_other_s2: ("honored", "an"),
+        test_other_s3: ("hourly", "an"),
+        test_other_s4: ("heirly", "an"),
         // plural
         test_other6: ("heiresses", "an"),
         test_other6b: ("heirs", "an"),
@@ -603,14 +607,15 @@ mod tests {
         test_other9: ("horror's", "a"),
         // Adverbs: u like y
         test_other_adv1: ("ubiquitously", "a"),
-        test_other_adv2: ("unanimously", "a"),
-        test_other_adv3: ("unicamerally", "a"),
-        test_other_adv4: ("uniquely", "a"),
-        test_other_adv5: ("universally", "a"),
-        test_other_adv6: ("urologically", "a"),
-        test_other_adv7: ("usefully", "a"),
-        test_other_adv8: ("uselessly", "a"),
-        test_other_adv9: ("usuriously", "a"),
+        test_other_adv2: ("ukelele", "a"),
+        test_other_adv3: ("unanimously", "a"),
+        test_other_adv4: ("unicamerally", "a"),
+        test_other_adv5: ("uniquely", "a"),
+        test_other_adv6: ("universally", "a"),
+        test_other_adv7: ("urologically", "a"),
+        test_other_adv8: ("usefully", "a"),
+        test_other_adv9: ("uselessly", "a"),
+        test_other_adv10: ("usuriously", "a"),
     }
 
     tests_options_with_colloquial! {
