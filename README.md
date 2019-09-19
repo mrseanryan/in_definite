@@ -13,8 +13,15 @@ assert_eq!("an", result);
 ```
 
 ```rust
+// Irregular word
 let result = in_definite::get_a_or_an("unicorn");
 assert_eq!("a", result);
+```
+
+```rust
+// Title Case
+let result = in_definite::get_a_or_an("Ugly");
+assert_eq!("An", result);
 ```
 
 ```rust
@@ -29,11 +36,13 @@ assert_eq!(false, result);
 
 ## Deviations from the original `indefinite`
 
-Is always case sensitive: 
+Upper/lower/mixed case handling: 
 - a word like THIS will be always considered to be an acronymn. 
 - normally the result is lower case ('a' or 'an')
-- title case is handled: 'Ugly' -> 'An'
+- title case is handled as: 'Ugly' -> 'An'
+- mixed case is handled as: 'uGly' -> 'an'
 
+Adverbs:
 - Handles adverbs with '-ly' in a *generic* manner. Example: "a ubiquitously"
 
 A big thanks to the original authors of [indefinite](https://www.npmjs.com/package/indefinite)!
