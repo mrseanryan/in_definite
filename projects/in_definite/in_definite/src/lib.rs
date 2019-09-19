@@ -179,12 +179,18 @@ pub fn is_an_options(word: &str, options: &Options) -> bool {
         return is_an_for_acronym(word);
     }
 
-    // TODO refactor to avoid duplication
-    if is_exception(&word_lower) || is_exception(strip_end(&word_lower, "s")) || is_exception(strip_end(&word_lower, "es")) || is_exception(strip_end(&word_lower, "ed")) || is_exception(strip_end(&word_lower, "ly")) {
+    if is_exception(&word_lower) || is_exception_after_strip(&word_lower) {
         return !is_an_result;
     }
 
     is_an_result
+}
+
+fn is_exception_after_strip(word_lower: &str) -> bool {
+    // into_iter(): 
+    // book: Rust 2018 says: If we want to create an iterator that takes ownership of v1 and returns owned values, we can call into_iter instead of iter. 
+    ["s", "es", "ed", "ly"].into_iter().map(|ending| strip_end(&word_lower, ending))
+        .any(|stripped| is_exception(stripped))
 }
 
 fn strip_end<'s>(word: &'s str, ending: &str) -> &'s str {
