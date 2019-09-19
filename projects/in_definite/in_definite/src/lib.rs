@@ -86,16 +86,8 @@ pub fn get_a_or_an_options<'s>(word: &'s str, options: &Options) -> &'s str {
     a_or_an_capitalized_to_match(is_an, get_first_word(word)) 
 }
 
-fn a_or_an_capitalized_to_match(is_an: bool, first_word: &str) -> &str {
-    let mut chars_iter = first_word.chars();
-    chars_iter.next();
-
-    let starts_with_capital = is_capital_char(get_first_letter(first_word));
-
-    let remainder_has_capitals = chars_iter.any(|c| is_capital_char(c));
-
-    // TODO xxx refactor me
-    let is_title_case = starts_with_capital && !remainder_has_capitals;
+fn a_or_an_capitalized_to_match(is_an: bool, first_word: &str) -> &str {  
+    let is_title_case = is_title_case(first_word);
 
     if is_an {
         if is_title_case {
@@ -110,6 +102,20 @@ fn a_or_an_capitalized_to_match(is_an: bool, first_word: &str) -> &str {
     }
 
     "a"
+}
+
+fn is_title_case(first_word: &str) -> bool {
+    starts_with_capital(first_word) && !remainder_has_capitals(first_word)
+}
+
+fn starts_with_capital(first_word: &str) -> bool {
+    is_capital_char(get_first_letter(first_word))
+}
+
+fn remainder_has_capitals(first_word: &str) -> bool {
+    let mut chars_iter = first_word.chars();
+    chars_iter.next();
+    chars_iter.any(|c| is_capital_char(c))
 }
 
 fn is_capital_char(c: char) -> bool {
