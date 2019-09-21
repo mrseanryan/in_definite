@@ -231,6 +231,7 @@ fn is_exception(word: &str) -> bool {
         "euphoria",
         "eureka",
         // Adjectives: eu like y
+        "euro",
         "european",
         "euphemistic",
         "euphonic",
@@ -487,6 +488,7 @@ mod tests {
     }
 
     tests! {
+        // acronymns
         test_ac0: ("CEO", "a"),
         test_ac1: ("EU", "an"),
         test_ac2a: ("FFA", "an"),
@@ -496,10 +498,15 @@ mod tests {
         test_ac4: ("MNM", "an"),
         test_ac5: ("UFO", "a"),
         test_ac6: ("UN", "a"),
+        // words
         test_a1: ("alien", "an"),
         test_a2a: ("antelope", "an"),
         test_a2b: ("apple", "an"),
         test_a2c: ("banana", "a"),
+        test_e1: ("economic", "an"),
+        test_e2: ("economy", "an"),
+        test_e3: ("euro", "a"),
+        test_e4: ("european", "a"),
         test_h1: ("hair", "a"),
         test_h2: ("heir", "an"),
         test_h3: ("herb", "an"), // USA not UK
