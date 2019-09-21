@@ -231,6 +231,7 @@ fn is_exception(word: &str) -> bool {
         "euphoria",
         "eureka",
         // Adjectives: eu like y
+        "euro",
         "european",
         "euphemistic",
         "euphonic",
@@ -285,6 +286,7 @@ fn is_exception(word: &str) -> bool {
         "ureter",
         "urethra",
         "urine",
+        "urologist",
         "urology",
         "urus",
         "usage",
@@ -487,6 +489,7 @@ mod tests {
     }
 
     tests! {
+        // acronymns
         test_ac0: ("CEO", "a"),
         test_ac1: ("EU", "an"),
         test_ac2a: ("FFA", "an"),
@@ -496,10 +499,38 @@ mod tests {
         test_ac4: ("MNM", "an"),
         test_ac5: ("UFO", "a"),
         test_ac6: ("UN", "a"),
+        test_ac7: ("US", "a"),
+        test_ac8: ("USA", "a"),
+        // words
         test_a1: ("alien", "an"),
-        test_a2a: ("antelope", "an"),
-        test_a2b: ("apple", "an"),
-        test_a2c: ("banana", "a"),
+        test_a2a: ("american", "an"),
+        test_a2b: ("antelope", "an"),
+        test_a2c: ("apple", "an"),
+        test_a2d: ("banana", "a"),
+        test_e1: ("economic", "an"),
+        test_e2: ("economy", "an"),
+        // nouns eu-
+        test_eu1: ("euro", "a"),
+        test_eu2: ("european", "a"),
+        test_eu3: ("European", "A"),
+        test_eu4: ("eucalyptus", "a"),
+        test_eu5: ("eulogy", "a"),
+        // nouns that begin with ur-.
+        test_ur1: ("uranium", "a"),
+        test_ur2: ("urinal", "a"),
+        test_ur3: ("urologist", "a"),
+        // uni - Most nouns or adjectives that begin with uni– also require the indefinite article a.
+        test_uni1: ("unicorn", "a"),
+        test_uni2: ("uniform", "a"),
+        test_uni3: ("unit", "a"),
+        test_uni4: ("universal", "a"),
+        test_uni5: ("university", "a"),
+        // uni - adjectives that begin with uni– which follow the general rule.
+        test_uni_adj1: ("unidentified", "an"),
+        test_uni_adj2: ("unimportant", "an"),
+        test_uni_adj3: ("unintended", "an"),
+        test_uni_adj4: ("unintelligent", "an"),
+        // more words
         test_h1: ("hair", "a"),
         test_h2: ("heir", "an"),
         test_h3: ("herb", "an"), // USA not UK
