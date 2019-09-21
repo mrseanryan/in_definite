@@ -10,6 +10,6 @@ echo -e "## [Unreleased] - ReleaseDate\n### Added\n\n### Changed\n\n$(cat $input
 git unstage
 git add $input
 git ci -m "Prepare changelog for further work."
-git st
+git push
 
 echo "Preparing changelog [done]"
