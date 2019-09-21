@@ -1,7 +1,10 @@
 ## [Unreleased] - ReleaseDate
+### Added
+
 ### Changed
 - Run tests before publish.
 - Exit publish script immediately on error.
+
 ## [0.1.8] - 2019-09-21
 ### Changed
 Improve publish scripts.
