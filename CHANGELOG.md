@@ -1,7 +1,6 @@
 ## [Unreleased] - ReleaseDate
-### Added
-
 ### Changed
+- Add version badges.
 - Run tests before publish.
 - Exit publish script immediately on error.
 
