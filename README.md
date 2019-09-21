@@ -3,6 +3,9 @@ Rust port of [indefinite](https://www.npmjs.com/package/indefinite) on npm, for 
 
 Get the indefinite article ('a' or 'an') to match the given word. For example: an umbrella, a user.
 
+[![](https://meritbadge.herokuapp.com/in_definite)](https://crates.io/crates/in_definite)
+[![Rust](https://img.shields.io/badge/rust-1.37.0%2B-blue.svg?maxAge=3600)](https://github.com/rust-lang/in_definite)
+
 ## Examples
 
 ```rust
