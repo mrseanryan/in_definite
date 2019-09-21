@@ -1,7 +1,6 @@
 ## [Unreleased] - ReleaseDate
-### Added
-
 ### Changed
+Adjust cargo-release settings.
 
 ## [0.1.5] - 2019-09-21
 ### Changed
