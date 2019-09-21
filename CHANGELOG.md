@@ -1,7 +1,6 @@
 ## [Unreleased] - ReleaseDate
-### Added
-
 ### Changed
+- Add 'english' keyword to crate.
 
 ## [0.1.9] - 2019-09-21
 ### Changed

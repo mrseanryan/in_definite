@@ -7,7 +7,7 @@ edition = "2018"
 license = "MIT"
 repository = "https://github.com/mrseanryan/in_definite"
 readme = "../../../README.md"
-keywords = ["indefinite", "grammar", "NLP", "text"]
+keywords = ["indefinite", "grammar", "english", "NLP", "text"]
 categories = ["text-processing"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
