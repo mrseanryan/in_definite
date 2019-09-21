@@ -1,6 +1,4 @@
 ## [Unreleased] - ReleaseDate
-### Added
-
 ### Changed
 Improve publish scripts.
 
