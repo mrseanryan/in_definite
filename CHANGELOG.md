@@ -1,3 +1,8 @@
+## [Unreleased] - ReleaseDate
+### Added
+
+### Changed
+
 ## [0.1.7] - 2019-09-21
 ### Changed
 Adjust publish script, to prepare changelog for continuing dev.
