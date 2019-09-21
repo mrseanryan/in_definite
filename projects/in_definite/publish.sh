@@ -1,7 +1,7 @@
 # exit when any command fails
 set -e
 
-.test.sh
+./test.sh
 
 echo "Publishing..."
 
