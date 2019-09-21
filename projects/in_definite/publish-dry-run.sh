@@ -1,5 +1,5 @@
 pushd in_definite
 
-cargo release
+cargo release --dry-run
 
 popd
