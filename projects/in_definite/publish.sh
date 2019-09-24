@@ -7,7 +7,7 @@ echo "Publishing..."
 
 pushd in_definite
 
-cargo release
+cargo release --no-confirm
 
 popd
 
