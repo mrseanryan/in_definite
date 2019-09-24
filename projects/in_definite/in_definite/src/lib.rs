@@ -118,6 +118,7 @@ fn a_or_an_capitalized_to_match(is_an: Is, first_word: &str) -> &'static str {
     }
 }
 
+// TODO xxx simplify via regex
 fn is_title_case(first_word: &str) -> bool {
     starts_with_capital(first_word) && !remainder_has_capitals(first_word)
 }
