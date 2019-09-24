@@ -86,7 +86,7 @@ pub fn get_a_or_an(word: &str) -> &str {
 ///
 /// assert_eq!("An", result);
 /// ```
-pub fn get_a_or_an_options<'s>(word: &'s str, options: &Options) -> &'s str {
+pub fn get_a_or_an_options(word: &str, options: &Options) -> &'static str {
     if word.trim().len() == 0 {
         return "";
     }
@@ -96,7 +96,7 @@ pub fn get_a_or_an_options<'s>(word: &'s str, options: &Options) -> &'s str {
     a_or_an_capitalized_to_match(is_an, get_first_word(word)) 
 }
 
-fn a_or_an_capitalized_to_match(is_an: Is, first_word: &str) -> &str {  
+fn a_or_an_capitalized_to_match(is_an: Is, first_word: &str) -> &'static str {  
     let is_title_case = is_title_case(first_word);
 
     match is_an {
