@@ -2,7 +2,7 @@
 //!
 //! Get the indefinite article ('a' or 'an') to match the given word. For example: an umbrella, a user.
 
-use regex::Regex;
+mod string_helper;
 
 pub struct Options {
     /// If true, then a 4 digit number like '1800' is treated like 'eighteen hundred', so will use 'an'.
@@ -93,11 +93,11 @@ pub fn get_a_or_an_options(word: &str, options: &Options) -> &'static str {
 
     let is_an = is_an_options(word, options);
 
-    a_or_an_capitalized_to_match(is_an, get_first_word(word)) 
+    a_or_an_capitalized_to_match(is_an, string_helper::get_first_word(word)) 
 }
 
 fn a_or_an_capitalized_to_match(is_an: Is, first_word: &str) -> &'static str {  
-    let is_title_case = is_title_case(first_word);
+    let is_title_case = string_helper::is_title_case(first_word);
 
     match is_an {
         Is::An => {
@@ -116,10 +116,6 @@ fn a_or_an_capitalized_to_match(is_an: Is, first_word: &str) -> &'static str {
         },
         _ => ""
     }
-}
-
-fn is_title_case(first_word: &str) -> bool {
-    is_match(first_word, r"^[A-Z][a-z]*$")
 }
 
 /// Returns true if the given word should be used with 'an' (not 'a').
@@ -186,7 +182,7 @@ pub fn is_an_options(word: &str, options: &Options) -> Is {
 }
 
 fn is_an_options_bool(word: &str, options: &Options) -> bool {
-    let word = get_first_word(word);
+    let word = string_helper::get_first_word(word);
 
     let word_lower = word.to_lowercase();
 
@@ -210,32 +206,12 @@ fn is_an_options_bool(word: &str, options: &Options) -> bool {
 fn is_exception_after_strip(word_lower: &str) -> bool {
     // into_iter(): 
     // book: Rust 2018 says: If we want to create an iterator that takes ownership of v1 and returns owned values, we can call into_iter instead of iter. 
-    ["s", "es", "ed", "ly"].into_iter().map(|ending| strip_end(&word_lower, ending))
+    ["s", "es", "ed", "ly"].into_iter().map(|ending| string_helper::strip_end(&word_lower, ending))
         .any(|stripped| is_exception(stripped))
 }
 
-fn strip_end<'s>(word: &'s str, ending: &str) -> &'s str {
-    if word.ends_with(ending) {
-        return &word[..(word.len() - ending.len())]
-    }
-
-    word
-}
-
-fn get_first_word(word: &str) -> &str {
-    let word = word.trim();
-
-    let words: Vec<&str> = word.split(|c: char| " ,.-;:'".contains(c)).collect();
-
-    words[0]
-}
-
-fn get_first_letter(word: &str) -> char {
-    word.chars().next().unwrap()
-}
-
 fn is_naively_an(word: &str) -> bool {
-    "aeiou".contains(get_first_letter(word))
+    "aeiou".contains(string_helper::get_first_letter(word))
 }
 
 fn is_exception(word: &str) -> bool {
@@ -362,7 +338,7 @@ fn is_exception(word: &str) -> bool {
 }
 
 fn is_acronym(word: &str) -> bool {
-    is_match(word, r"^[A-Z]+$")
+    string_helper::is_match(word, r"^[A-Z]+$")
 }
 
 // ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/acronyms.js
@@ -386,29 +362,24 @@ fn both_or_neither(a: bool, b: bool) -> bool {
 }
 
 fn is_irregular_acronym(word: &str) -> bool {
-    is_match(word, r"^[UFHLMNRSX]")
+    string_helper::is_match(word, r"^[UFHLMNRSX]")
 }
 
 fn starts_with_vowel(word: &str) -> bool {
-    is_match(word, r"^[aeiouAEIOU]")
-}
-
-fn is_match(word: &str, regex: &str) -> bool {
-    let re = Regex::new(regex).unwrap();
-    re.is_match(word)
+    string_helper::is_match(word, r"^[aeiouAEIOU]")
 }
 
 // numbers
 // ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/numbers.js
 fn is_number(word: &str) -> bool {
-    is_match(word, r"^([0-9,]+)")
+    string_helper::is_match(word, r"^([0-9,]+)")
 }
 
 fn is_an_for_number(word: &str, options: &Options) -> bool {
     let mut is_an = false;
 
-    if is_match(word, r"^(11|8|18)") {
-        let starts_with_11_or_18 = is_match(word, r"^(11|18)");
+    if string_helper::is_match(word, r"^(11|8|18)") {
+        let starts_with_11_or_18 = string_helper::is_match(word, r"^(11|18)");
 
         // If the number starts with 11 or 18 and is of length 4,
         // the pronunciation is ambiguous so check opts.numbers to see
@@ -445,31 +416,6 @@ mod tests {
         // UPPER case - do nothing (acronym)
         assert_eq!("an", a_or_an_capitalized_to_match(Is::An, "FIFA"));
         assert_eq!("a", a_or_an_capitalized_to_match(Is::A, "UN"));
-    }
-
-    #[test]
-    fn get_first_word_test() {
-        assert_eq!("one", get_first_word("one two"));
-        assert_eq!("one", get_first_word("one two three"));
-        assert_eq!("one", get_first_word("one-two three"));
-        assert_eq!("heir", get_first_word("heir's"));
-    }
-
-    #[test]
-    fn is_title_case_test() {
-        assert_eq!(false, is_title_case("one"));
-        assert_eq!(true, is_title_case("Two"));
-        assert_eq!(false, is_title_case("THree"));
-        assert_eq!(false, is_title_case("FOUR"));
-    }
-
-    #[test]
-    fn strip_end_test() {
-        assert_eq!("one", strip_end("ones", "s"));
-        assert_eq!("heir", strip_end("heir's", "'s"));
-        assert_eq!("hour", strip_end("houred", "ed"));
-        assert_eq!("hour", strip_end("hourly", "ly"));
-        assert_eq!("hour", strip_end("hour's", "'s"));
     }
 
     #[test]
