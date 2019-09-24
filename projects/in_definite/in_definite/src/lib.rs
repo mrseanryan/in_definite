@@ -383,6 +383,29 @@ fn is_number(word: &str) -> bool {
     is_match(word, r"^([0-9,]+)")
 }
 
+enum IsAn
+{
+    IsAn,
+    IsA,
+    None
+}
+
+// TODO xxx add Examples, tests
+// TODO xxx should be is_an and then remove the bool version
+fn is_an_for_number_enum(word: &str) -> IsAn {
+    if word.trim().len() == 0
+    {
+        return IsAn::None;
+    }
+
+    if is_an_for_number(word, &Options::default())
+    {
+        return IsAn::IsAn
+    }
+
+    IsAn::IsA
+}
+
 fn is_an_for_number(word: &str, options: &Options) -> bool {
     let mut is_an = false;
 
