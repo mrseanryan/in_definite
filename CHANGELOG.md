@@ -1,3 +1,8 @@
+## [Unreleased] - ReleaseDate
+### Added
+
+### Changed
+
 ## [0.2.0] - 2019-09-24
 ### Changed
 - *Breaking change* Improved API that correctly handles empty or all-whitespace input.
