@@ -2,34 +2,15 @@
 //!
 //! Get the indefinite article ('a' or 'an') to match the given word. For example: an umbrella, a user.
 
-mod string_helper;
+mod core_is_an;
+mod options;
+mod rules;
+mod utils;
 
-pub struct Options {
-    /// If true, then a 4 digit number like '1800' is treated like 'eighteen hundred', so will use 'an'.
-    /// 
-    /// Normally, such a number is treated like 'one thousand eight hundred', so would use 'a'.
-    pub are_numbers_colloquial: bool,
-}
+use utils::string_helper;
 
-impl Options {
-    pub fn default() -> Options {
-        Options {are_numbers_colloquial: false}
-    }
-
-    pub fn with_colloquial() -> Options {
-        Options {are_numbers_colloquial: true}
-    }
-}
-
-// Traits required for the unit test assertions:
-#[derive(Debug)]
-#[derive(PartialEq)]
-pub enum Is
-{
-    An,
-    A,
-    None
-}
+pub use options::Options;
+pub use core_is_an::Is;
 
 /// Get 'a' or 'an' to match the given word.
 ///
@@ -93,29 +74,7 @@ pub fn get_a_or_an_options(word: &str, options: &Options) -> &'static str {
 
     let is_an = is_an_options(word, options);
 
-    a_or_an_capitalized_to_match(is_an, string_helper::get_first_word(word)) 
-}
-
-fn a_or_an_capitalized_to_match(is_an: Is, first_word: &str) -> &'static str {  
-    let is_title_case = string_helper::is_title_case(first_word);
-
-    match is_an {
-        Is::An => {
-        if is_title_case {
-            return "An";
-        }
-
-        return "an";
-        },
-        Is::A => {
-            if is_title_case {
-                return "A";
-            }
-
-            "a"
-        },
-        _ => ""
-    }
+    core_is_an::a_or_an_capitalized_to_match(is_an, string_helper::get_first_word(word)) 
 }
 
 /// Returns true if the given word should be used with 'an' (not 'a').
@@ -173,7 +132,7 @@ pub fn is_an_options(word: &str, options: &Options) -> Is {
         return Is::None;
     }
 
-    if is_an_options_bool(word, options)
+    if core_is_an::is_an_options_bool(word, options)
     {
         return Is::An;
     }
@@ -181,242 +140,9 @@ pub fn is_an_options(word: &str, options: &Options) -> Is {
     Is::A
 }
 
-fn is_an_options_bool(word: &str, options: &Options) -> bool {
-    let word = string_helper::get_first_word(word);
-
-    let word_lower = word.to_lowercase();
-
-    if is_number(word) {
-        return is_an_for_number(word, options)
-    }
-
-    let is_an_result = is_naively_an(&word_lower);
-
-    if is_acronym(word) {
-        return is_an_for_acronym(word);
-    }
-
-    if is_exception(&word_lower) || is_exception_after_strip(&word_lower) {
-        return !is_an_result;
-    }
-
-    is_an_result
-}
-
-fn is_exception_after_strip(word_lower: &str) -> bool {
-    // into_iter(): 
-    // book: Rust 2018 says: If we want to create an iterator that takes ownership of v1 and returns owned values, we can call into_iter instead of iter. 
-    ["s", "es", "ed", "ly"].into_iter().map(|ending| string_helper::strip_end(&word_lower, ending))
-        .any(|stripped| is_exception(stripped))
-}
-
-fn is_naively_an(word: &str) -> bool {
-    "aeiou".contains(string_helper::get_first_letter(word))
-}
-
-fn is_exception(word: &str) -> bool {
-    // ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/irregular-words.js
-
-    let exceptions = [
-        // Nouns: eu like y
-        "eunuch",
-        "eucalyptus",
-        "eugenics",
-        "eulogy",
-        "euphemism",
-        "euphony",
-        "euphoria",
-        "eureka",
-        // Adjectives: eu like y
-        "euro",
-        "european",
-        "euphemistic",
-        "euphonic",
-        "euphoric",
-        // Adverbs: eu like y
-        "euphemistically",
-        "euphonically",
-        "euphorically",
-        // Nouns: silent h
-        "heir",
-        "heiress",
-        "herb",
-        "homage",
-        "honesty",
-        "honor",
-        "honour",
-        "hour",
-        // Adjectives: silent h
-        "honest",
-        "honorous",
-        // Adverbs: silent h
-        "honestly",
-        "hourly",
-        // Nouns: o like w
-        "one",
-        "ouija",
-        // Adjectives: o like w
-        "once",
-        // Adverbs: o like w
-
-        // Nouns: u like y
-        "ubiquity",
-        "udometer",
-        "ufo",
-        "uke",
-        "ukelele",
-        "ululate",
-        "unicorn",
-        "unicycle",
-        "uniform",
-        "unify",
-        "union",
-        "unison",
-        "unit",
-        "unity",
-        "universe",
-        "university",
-        "upas",
-        "ural",
-        "uranium",
-        "urea",
-        "ureter",
-        "urethra",
-        "urine",
-        "urologist",
-        "urology",
-        "urus",
-        "usage",
-        "use",
-        "user",
-        "usual",
-        "usurp",
-        "usury",
-        "utensil",
-        "uterus",
-        "utility",
-        "utopia",
-        "utricle",
-        "uvarovite",
-        "uvea",
-        "uvula",
-        // Adjectives: u like y
-        "ubiquitous",
-        "ugandan",
-        "ukrainian",
-        "unanimous",
-        "unicameral",
-        "unified",
-        "unique",
-        "unisex",
-        "universal",
-        "urinal",
-        "urological",
-        "useful",
-        "useless",
-        "usurious",
-        "usurped",
-        "utilitarian",
-        "utopic",
-        // Adverbs: u like y
-        // (handled generically)
-        // Nouns: y like i
-        "yttria",
-        "yggdrasil",
-        "ylem",
-        "yperite",
-        "ytterbia",
-        "ytterbium",
-        "yttrium",
-        // Adjectives: y like i
-        "ytterbous",
-        "ytterbic",
-        "yttric",
-    ];
-
-    exceptions.contains(&word)
-}
-
-fn is_acronym(word: &str) -> bool {
-    string_helper::is_match(word, r"^[A-Z]+$")
-}
-
-// ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/acronyms.js
-fn is_an_for_acronym(word: &str) -> bool {
-    let is_irregular = is_irregular_acronym(word);
-    let initial_vowel = starts_with_vowel(word);
-    /*
-     * If it starts with U: "a"
-     * If it starts with any other vowel: "an"
-     * If it starts with F, H, L, M, N, R, S, or X: "an"
-     * If it starts with any other consonant: "a"
-     */
-    if both_or_neither(initial_vowel, is_irregular) {
-        return false;
-    }
-    true
-}
-
-fn both_or_neither(a: bool, b: bool) -> bool {
-    a && b || !a && !b
-}
-
-fn is_irregular_acronym(word: &str) -> bool {
-    string_helper::is_match(word, r"^[UFHLMNRSX]")
-}
-
-fn starts_with_vowel(word: &str) -> bool {
-    string_helper::is_match(word, r"^[aeiouAEIOU]")
-}
-
-// numbers
-// ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/numbers.js
-fn is_number(word: &str) -> bool {
-    string_helper::is_match(word, r"^([0-9,]+)")
-}
-
-fn is_an_for_number(word: &str, options: &Options) -> bool {
-    let mut is_an = false;
-
-    if string_helper::is_match(word, r"^(11|8|18)") {
-        let starts_with_11_or_18 = string_helper::is_match(word, r"^(11|18)");
-
-        // If the number starts with 11 or 18 and is of length 4,
-        // the pronunciation is ambiguous so check opts.numbers to see
-        // how to render it. Otherwise, if it starts with 11 or 18
-        // and has 2, 5, 8, 11, etc. digits, use 'an.' Finally, if it
-        // starts with an 8, use 'an.' For everything else, use 'a.'
-        if starts_with_11_or_18 && word.len() == 4 {
-            is_an = options.are_numbers_colloquial;
-        } else if starts_with_11_or_18 && (word.len() - 2) % 3 == 0 {
-            is_an = true;
-        } else {
-            is_an = word.starts_with('8');
-        }
-    }
-
-    is_an
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn a_or_an_capitalized_to_match_test() {
-        // Title case - should match
-        assert_eq!("An", a_or_an_capitalized_to_match(Is::An, "Ugly"));
-        assert_eq!("A", a_or_an_capitalized_to_match(Is::A, "Leopard"));
-        // lower case - do nothing
-        assert_eq!("an", a_or_an_capitalized_to_match(Is::An, "ugly"));
-        assert_eq!("a", a_or_an_capitalized_to_match(Is::A, "leopard"));
-        // MiXed case - do nothing
-        assert_eq!("an", a_or_an_capitalized_to_match(Is::An, "UgLy"));
-        assert_eq!("a", a_or_an_capitalized_to_match(Is::A, "lEoparD"));
-        // UPPER case - do nothing (acronym)
-        assert_eq!("an", a_or_an_capitalized_to_match(Is::An, "FIFA"));
-        assert_eq!("a", a_or_an_capitalized_to_match(Is::A, "UN"));
-    }
 
     #[test]
     fn common_words() {
