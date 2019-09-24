@@ -11,6 +11,6 @@ cargo release
 
 popd
 
-./prepare-changelog.sh
+./_prepare-changelog.sh
 
 echo "Publishing [done]"
