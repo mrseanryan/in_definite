@@ -1,4 +1,4 @@
-## [Unreleased] - ReleaseDate
+## [0.2.0] - 2019-09-24
 ### Changed
 - *Breaking change* Improved API that correctly handles empty or all-whitespace input.
 - `is_an(word: &str) -> bool` changed to `is_an(word: &str) -> Is` where Is is an enum: A, An, None.
