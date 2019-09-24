@@ -118,23 +118,8 @@ fn a_or_an_capitalized_to_match(is_an: Is, first_word: &str) -> &'static str {
     }
 }
 
-// TODO xxx simplify via regex
 fn is_title_case(first_word: &str) -> bool {
-    starts_with_capital(first_word) && !remainder_has_capitals(first_word)
-}
-
-fn starts_with_capital(first_word: &str) -> bool {
-    is_capital_char(get_first_letter(first_word))
-}
-
-fn remainder_has_capitals(first_word: &str) -> bool {
-    let mut chars_iter = first_word.chars();
-    chars_iter.next();
-    chars_iter.any(|c| is_capital_char(c))
-}
-
-fn is_capital_char(c: char) -> bool {
-    'A' <= c && c <= 'Z'
+    is_match(first_word, r"^[A-Z][a-z]*$")
 }
 
 /// Returns true if the given word should be used with 'an' (not 'a').
@@ -468,6 +453,14 @@ mod tests {
         assert_eq!("one", get_first_word("one two three"));
         assert_eq!("one", get_first_word("one-two three"));
         assert_eq!("heir", get_first_word("heir's"));
+    }
+
+    #[test]
+    fn is_title_case_test() {
+        assert_eq!(false, is_title_case("one"));
+        assert_eq!(true, is_title_case("Two"));
+        assert_eq!(false, is_title_case("THree"));
+        assert_eq!(false, is_title_case("FOUR"));
     }
 
     #[test]
