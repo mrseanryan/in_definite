@@ -21,6 +21,16 @@ impl Options {
     }
 }
 
+// Traits required for the unit test assertions:
+#[derive(Debug)]
+#[derive(PartialEq)]
+pub enum Is
+{
+    An,
+    A,
+    None
+}
+
 /// Get 'a' or 'an' to match the given word.
 ///
 /// # Examples
@@ -77,31 +87,35 @@ pub fn get_a_or_an(word: &str) -> &str {
 /// assert_eq!("An", result);
 /// ```
 pub fn get_a_or_an_options<'s>(word: &'s str, options: &Options) -> &'s str {
-    if word.len() == 0 {
+    if word.trim().len() == 0 {
         return "";
     }
 
     let is_an = is_an_options(word, options);
-    
+
     a_or_an_capitalized_to_match(is_an, get_first_word(word)) 
 }
 
-fn a_or_an_capitalized_to_match(is_an: bool, first_word: &str) -> &str {  
+fn a_or_an_capitalized_to_match(is_an: Is, first_word: &str) -> &str {  
     let is_title_case = is_title_case(first_word);
 
-    if is_an {
+    match is_an {
+        Is::An => {
         if is_title_case {
             return "An";
         }
 
         return "an";
-    }
+        },
+        Is::A => {
+            if is_title_case {
+                return "A";
+            }
 
-    if is_title_case {
-        return "A";
+            "a"
+        },
+        _ => ""
     }
-
-    "a"
 }
 
 fn is_title_case(first_word: &str) -> bool {
@@ -131,15 +145,21 @@ fn is_capital_char(c: char) -> bool {
 /// 
 /// let result = in_definite::is_an("alien");
 ///
-/// assert_eq!(true, result);
+/// assert_eq!(in_definite::Is::An, result);
 /// ```
 ///
 /// ```
 /// let result = in_definite::is_an("unicorn");
 ///
-/// assert_eq!(false, result);
+/// assert_eq!(in_definite::Is::A, result);
 /// ```
-pub fn is_an(word: &str) -> bool {
+/// 
+/// ```
+/// let result = in_definite::is_an("");
+///
+/// assert_eq!(in_definite::Is::None, result);
+/// ```
+pub fn is_an(word: &str) -> Is {
     is_an_options(word, &Options::default())
 }
 
@@ -152,19 +172,34 @@ pub fn is_an(word: &str) -> bool {
 /// 
 /// let result = in_definite::is_an_options("1800", &in_definite::Options::with_colloquial()); // 'eighteen hundred'
 ///
-/// assert_eq!(true, result);
+/// assert_eq!(in_definite::Is::An, result);
 /// ```
 ///
 /// ```
 /// let result = in_definite::is_an_options("1800", &in_definite::Options::default()); // 'one thousand eight hundred'
 ///
-/// assert_eq!(false, result);
+/// assert_eq!(in_definite::Is::A, result);
 /// ```
-pub fn is_an_options(word: &str, options: &Options) -> bool {
-    if word.len() == 0 {
-        return false;
+///
+/// ```
+/// let result = in_definite::is_an_options(" ", &in_definite::Options::default());
+///
+/// assert_eq!(in_definite::Is::None, result);
+/// ```
+pub fn is_an_options(word: &str, options: &Options) -> Is {
+    if word.trim().len() == 0 {
+        return Is::None;
     }
 
+    if is_an_options_bool(word, options)
+    {
+        return Is::An;
+    }
+
+    Is::A
+}
+
+fn is_an_options_bool(word: &str, options: &Options) -> bool {
     let word = get_first_word(word);
 
     let word_lower = word.to_lowercase();
@@ -413,17 +448,17 @@ mod tests {
     #[test]
     fn a_or_an_capitalized_to_match_test() {
         // Title case - should match
-        assert_eq!("An", a_or_an_capitalized_to_match(true, "Ugly"));
-        assert_eq!("A", a_or_an_capitalized_to_match(false, "Leopard"));
+        assert_eq!("An", a_or_an_capitalized_to_match(Is::An, "Ugly"));
+        assert_eq!("A", a_or_an_capitalized_to_match(Is::A, "Leopard"));
         // lower case - do nothing
-        assert_eq!("an", a_or_an_capitalized_to_match(true, "ugly"));
-        assert_eq!("a", a_or_an_capitalized_to_match(false, "leopard"));
+        assert_eq!("an", a_or_an_capitalized_to_match(Is::An, "ugly"));
+        assert_eq!("a", a_or_an_capitalized_to_match(Is::A, "leopard"));
         // MiXed case - do nothing
-        assert_eq!("an", a_or_an_capitalized_to_match(true, "UgLy"));
-        assert_eq!("a", a_or_an_capitalized_to_match(false, "lEoparD"));
+        assert_eq!("an", a_or_an_capitalized_to_match(Is::An, "UgLy"));
+        assert_eq!("a", a_or_an_capitalized_to_match(Is::A, "lEoparD"));
         // UPPER case - do nothing (acronym)
-        assert_eq!("an", a_or_an_capitalized_to_match(true, "FIFA"));
-        assert_eq!("a", a_or_an_capitalized_to_match(false, "UN"));
+        assert_eq!("an", a_or_an_capitalized_to_match(Is::An, "FIFA"));
+        assert_eq!("a", a_or_an_capitalized_to_match(Is::A, "UN"));
     }
 
     #[test]
@@ -449,15 +484,21 @@ mod tests {
         assert_eq!("an", get_a_or_an("apple"));
         assert_eq!("a", get_a_or_an("pear"));
 
-        assert_eq!(true, is_an("antelope"));
-        assert_eq!(true, is_an("apple"));
-        assert_eq!(false, is_an("pear"));
+        assert_eq!(Is::An, is_an("antelope"));
+        assert_eq!(Is::An, is_an("apple"));
+        assert_eq!(Is::A, is_an("pear"));
     }
 
     #[test]
     fn zero_length() {
         assert_eq!("", get_a_or_an(""));
-        assert_eq!(false, is_an(""));
+        assert_eq!(Is::None, is_an(""));
+    }
+
+    #[test]
+    fn all_whitespace() {
+        assert_eq!("", get_a_or_an("   "));
+        assert_eq!(Is::None, is_an("   "));
     }
 
     macro_rules! tests {
@@ -467,7 +508,7 @@ mod tests {
             fn $name() {
                 let (input, expected) = $value;
                 assert_eq!(expected, get_a_or_an(input));
-                assert_eq!(expected.to_lowercase() == "an", is_an(input));
+                assert_eq!(expected.to_lowercase() == "an", is_an(input) == Is::An);
             }
         )*
         }
@@ -482,7 +523,7 @@ mod tests {
 
                 let (input, expected) = $value;
                 assert_eq!(expected, get_a_or_an_options(input, options));
-                assert_eq!(expected.to_lowercase() == "an", is_an_options(input, options));
+                assert_eq!(expected.to_lowercase() == "an", is_an_options(input, options) == Is::An);
             }
         )*
         }

@@ -29,12 +29,12 @@ assert_eq!("An", result);
 
 ```rust
 let result = in_definite::is_an("alien");
-assert_eq!(true, result);
+assert_eq!(in_definite::Is::An, result);
 ```
 
 ```rust
 let result = in_definite::is_an("unicorn");
-assert_eq!(false, result);
+assert_eq!(in_definite::Is::A, result);
 ```
 
 ## Deviations from the original `indefinite`

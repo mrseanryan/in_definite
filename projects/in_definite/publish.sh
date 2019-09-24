@@ -7,10 +7,10 @@ echo "Publishing..."
 
 pushd in_definite
 
-cargo release
+cargo release --no-confirm
 
 popd
 
-./prepare-changelog.sh
+./_prepare-changelog.sh
 
 echo "Publishing [done]"
