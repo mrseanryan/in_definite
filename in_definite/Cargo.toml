@@ -6,7 +6,7 @@ authors = ["sean <str_ie@yahoo.co.uk>"]
 edition = "2018"
 license = "MIT"
 repository = "https://github.com/mrseanryan/in_definite"
-readme = "../../../README.md"
+readme = "README.md"
 keywords = ["indefinite", "grammar", "english", "NLP", "text"]
 categories = ["text-processing"]
 

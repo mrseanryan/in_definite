@@ -1,7 +1,6 @@
 ## [Unreleased] - ReleaseDate
-### Added
-
 ### Changed
+- Internal refactoring and cleaning up
 
 ## [0.2.0] - 2019-09-24
 ### Changed
