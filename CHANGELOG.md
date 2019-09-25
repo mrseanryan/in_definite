@@ -2,6 +2,7 @@
 ### Added
 
 ### Changed
+- Minor internal cleaning up
 
 ## [0.2.1] - 2019-09-24
 ### Changed
