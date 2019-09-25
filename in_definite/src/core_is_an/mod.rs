@@ -5,8 +5,7 @@ use crate::options::Options;
 use crate::rules;
 
 // Traits required for the unit test assertions:
-#[derive(Debug)]
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 pub enum Is
 {
     An,

@@ -3,14 +3,19 @@ use crate::string_helper;
 pub fn is_exception_after_strip(word_lower: &str) -> bool {
     // into_iter(): 
     // book: Rust 2018 says: If we want to create an iterator that takes ownership of v1 and returns owned values, we can call into_iter instead of iter. 
-    ["s", "es", "ed", "ly"].into_iter().map(|ending| string_helper::strip_end(&word_lower, ending))
+    ENDINGS.into_iter().map(|ending| string_helper::strip_end(&word_lower, ending))
         .any(|stripped| is_exception(stripped))
 }
+
+const ENDINGS: &[&str] = &["s", "es", "ed", "ly"];
 
 pub fn is_exception(word: &str) -> bool {
     // ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/irregular-words.js
 
-    let exceptions = [
+    EXCEPTIONS.contains(&word)
+}
+
+const EXCEPTIONS: &[&str] = &[
         // Nouns: eu like y
         "eunuch",
         "eucalyptus",
@@ -126,6 +131,3 @@ pub fn is_exception(word: &str) -> bool {
         "ytterbic",
         "yttric",
     ];
-
-    exceptions.contains(&word)
-}
