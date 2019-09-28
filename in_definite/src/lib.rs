@@ -361,6 +361,7 @@ mod tests {
         test_colloquial_ac2: ("FIFA", "an"),
         test_colloquial_ac3: ("MIA", "an"),
         test_colloquial_ac4: ("MNM", "an"),
+        test_colloquial_ac4b: ("NATO", "an"),
         test_colloquial_ac5: ("UFO", "a"),
         test_colloquial_ac6: ("UN", "a"),
         test_colloquial_a1: ("alien", "an"),
