@@ -40,7 +40,7 @@ assert_eq!(in_definite::Is::A, result);
 ## Deviations from the original `indefinite`
 
 Upper/lower/mixed case handling: 
-- a word like THIS will be always considered to be an acronymn. 
+- a word like THIS will be always considered to be an acronym.
 - normally the result is lower case ('a' or 'an')
 - title case is handled as: 'Ugly' -> 'An'
 - mixed case is handled as: 'uGly' -> 'an'

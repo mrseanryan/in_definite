@@ -1,7 +1,7 @@
 use crate::string_helper;
 
 pub fn is_acronym(word: &str) -> bool {
-    string_helper::is_match(word, r"^[A-Z]+$")
+    word.chars().all(|ch| ch.is_uppercase())
 }
 
 // ref: https://github.com/tandrewnichols/indefinite/blob/master/lib/rules/acronyms.js
@@ -25,9 +25,9 @@ fn both_or_neither(a: bool, b: bool) -> bool {
 }
 
 fn is_irregular_acronym(word: &str) -> bool {
-    string_helper::is_match(word, r"^[UFHLMNRSX]")
+    "UFHLMNRSX".contains(string_helper::get_first_letter(word))
 }
 
 fn starts_with_vowel(word: &str) -> bool {
-    string_helper::is_match(word, r"^[aeiouAEIOU]")
+    "aeiouAEIOU".contains(string_helper::get_first_letter(word))
 }
