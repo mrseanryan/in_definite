@@ -1,4 +1,4 @@
-## [Unreleased] - ReleaseDate
+## [0.2.2] - 2020-03-15
 ### Added
 
 ### Changed
