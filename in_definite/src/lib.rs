@@ -196,7 +196,7 @@ mod tests {
     }
 
     tests! {
-        // acronymns
+        // acronyms
         test_ac0: ("CEO", "a"),
         test_ac1: ("EU", "an"),
         test_ac2a: ("FFA", "an"),
@@ -269,6 +269,49 @@ mod tests {
         test_n18: ("18", "an"),
         test_n19: ("19", "a"),
         test_n20: ("20", "a"),
+        // numbers - thousands with separator
+        test_n1_000: ("1,000", "a"),
+        test_n2_000: ("2,000", "a"),
+        test_n3_000: ("3,000", "a"),
+        test_n4_000: ("4,000", "a"),
+        test_n5_000: ("5,000", "a"),
+        test_n6_000: ("6,000", "a"),
+        test_n7_000: ("7,000", "a"),
+        test_n8_000: ("8,000", "an"),
+        test_n9_000: ("9,000", "a"),
+        test_n10_000: ("10,000", "a"),
+        test_n11_000: ("11,000", "an"),
+        test_n12_000: ("12,000", "a"),
+        test_n13_000: ("13,000", "a"),
+        test_n14_000: ("14,000", "a"),
+        test_n15_000: ("15,000", "a"),
+        test_n16_000: ("16,000", "a"),
+        test_n17_000: ("17,000", "a"),
+        test_n18_000: ("18,000", "an"),
+        test_n19_000: ("19,000", "a"),
+        test_n20_000: ("20,000", "a"),
+        // numbers - decimal point
+        test_n0_5: ("0.5", "a"),
+        test_n1_5: ("1.5", "a"),
+        test_n2_5: ("2.5", "a"),
+        test_n3_5: ("3.5", "a"),
+        test_n4_5: ("4.5", "a"),
+        test_n5_5: ("5.5", "a"),
+        test_n6_5: ("6.5", "a"),
+        test_n7_5: ("7.5", "a"),
+        test_n8_5: ("8.5", "an"),
+        test_n9_5: ("9.5", "a"),
+        test_n10_5: ("10.5", "a"),
+        test_n11_5: ("11.5", "an"),
+        test_n12_5: ("12.5", "a"),
+        test_n13_5: ("13.5", "a"),
+        test_n14_5: ("14.5", "a"),
+        test_n15_5: ("15.5", "a"),
+        test_n16_5: ("16.5", "a"),
+        test_n17_5: ("17.5", "a"),
+        test_n18_5: ("18.5", "an"),
+        test_n19_5: ("19.5", "a"),
+        test_n20_5: ("20.5", "a"),
         // numbers - years
         test_ny1000: ("1000", "a"),
         test_ny1800: ("1800", "a"),
@@ -384,7 +427,7 @@ mod tests {
         test_colloquial_n8: ("8", "an"),
         test_colloquial_n9: ("9", "a"),
         test_colloquial_n10: ("10", "a"),
-        // numbers - years: with colluquial on, they are as read out loud: "an eighteen hundred"
+        // numbers - years: with colloquial on, they are as read out loud: "an eighteen hundred"
         test_colloquial_ny1000: ("1000", "a"), // 'ten hundred'
         test_colloquial_ny1100: ("1100", "an"), // 'eleven hundred'
         test_colloquial_ny1800: ("1800", "an"),

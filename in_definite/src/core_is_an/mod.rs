@@ -46,8 +46,8 @@ pub fn is_an_options_bool(word: &str, options: &Options) -> bool {
 
     let is_an_result = is_naively_an(&word_lower);
 
-    if rules::rule_acronymns::is_acronym(word) {
-        return rules::rule_acronymns::is_an_for_acronym(word);
+    if rules::rule_acronyms::is_acronym(word) {
+        return rules::rule_acronyms::is_an_for_acronym(word);
     }
 
     if rules::rule_exceptions::is_exception(&word_lower) || rules::rule_exceptions::is_exception_after_strip(&word_lower) {

@@ -1,5 +1,3 @@
-use regex::Regex;
-
 pub fn get_first_word(word: &str) -> &str {
     let word = word.trim();
 
@@ -12,13 +10,9 @@ pub fn get_first_letter(word: &str) -> char {
     word.chars().next().unwrap()
 }
 
-pub fn is_match(word: &str, regex: &str) -> bool {
-    let re = Regex::new(regex).unwrap();
-    re.is_match(word)
-}
-
 pub fn is_title_case(first_word: &str) -> bool {
-    is_match(first_word, r"^[A-Z][a-z]*$")
+    let mut chars = first_word.chars();
+    chars.next().unwrap().is_uppercase() && chars.all(|ch| ch.is_lowercase())
 }
 
 pub fn strip_end<'s>(word: &'s str, ending: &str) -> &'s str {

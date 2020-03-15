@@ -3,6 +3,7 @@
 
 ### Changed
 - Minor internal cleaning up
+- Removed dependency on the `regex` crate
 
 ## [0.2.1] - 2019-09-24
 ### Changed
