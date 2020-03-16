@@ -6,32 +6,31 @@ use crate::rules;
 
 // Traits required for the unit test assertions:
 #[derive(Debug, PartialEq)]
-pub enum Is
-{
+pub enum Is {
     An,
     A,
-    None
+    None,
 }
 
-pub fn a_or_an_capitalized_to_match(is_an: Is, first_word: &str) -> &'static str {  
+pub fn a_or_an_capitalized_to_match(is_an: Is, first_word: &str) -> &'static str {
     let is_title_case = string_helper::is_title_case(first_word);
 
     match is_an {
         Is::An => {
-        if is_title_case {
-            return "An";
-        }
+            if is_title_case {
+                return "An";
+            }
 
-        return "an";
-        },
+            return "an";
+        }
         Is::A => {
             if is_title_case {
                 return "A";
             }
 
             "a"
-        },
-        _ => ""
+        }
+        _ => "",
     }
 }
 
@@ -41,7 +40,7 @@ pub fn is_an_options_bool(word: &str, options: &Options) -> bool {
     let word_lower = word.to_lowercase();
 
     if rules::rule_numbers::is_number(word) {
-        return rules::rule_numbers::is_an_for_number(word, options)
+        return rules::rule_numbers::is_an_for_number(word, options);
     }
 
     let is_an_result = is_naively_an(&word_lower);
@@ -50,7 +49,9 @@ pub fn is_an_options_bool(word: &str, options: &Options) -> bool {
         return rules::rule_acronyms::is_an_for_acronym(word);
     }
 
-    if rules::rule_exceptions::is_exception(&word_lower) || rules::rule_exceptions::is_exception_after_strip(&word_lower) {
+    if rules::rule_exceptions::is_exception(&word_lower)
+        || rules::rule_exceptions::is_exception_after_strip(&word_lower)
+    {
         return !is_an_result;
     }
 

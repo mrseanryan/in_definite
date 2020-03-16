@@ -9,8 +9,8 @@ mod utils;
 
 use utils::string_helper;
 
-pub use options::Options;
 pub use core_is_an::Is;
+pub use options::Options;
 
 /// Get 'a' or 'an' to match the given word.
 ///
@@ -18,7 +18,7 @@ pub use core_is_an::Is;
 ///
 /// ```
 /// use in_definite;
-/// 
+///
 /// let result = in_definite::get_a_or_an("alien");
 ///
 /// assert_eq!("an", result);
@@ -47,20 +47,20 @@ pub fn get_a_or_an(word: &str) -> &str {
 ///
 /// ```
 /// use in_definite;
-/// 
+///
 /// // 'eighteen hundred'
 /// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options::with_colloquial());
 ///
 /// assert_eq!("an", result);
 /// ```
-/// 
+///
 /// ```
 /// // 'one thousand eight hundred'
 /// let result = in_definite::get_a_or_an_options("1800", &in_definite::Options::default());
 ///
 /// assert_eq!("a", result);
 /// ```
-/// 
+///
 /// ```
 /// // Title Case
 /// let result = in_definite::get_a_or_an_options("Ugly", &in_definite::Options::default());
@@ -74,7 +74,7 @@ pub fn get_a_or_an_options(word: &str, options: &Options) -> &'static str {
 
     let is_an = is_an_options(word, options);
 
-    core_is_an::a_or_an_capitalized_to_match(is_an, string_helper::get_first_word(word)) 
+    core_is_an::a_or_an_capitalized_to_match(is_an, string_helper::get_first_word(word))
 }
 
 /// Returns true if the given word should be used with 'an' (not 'a').
@@ -83,7 +83,7 @@ pub fn get_a_or_an_options(word: &str, options: &Options) -> &'static str {
 ///
 /// ```
 /// use in_definite;
-/// 
+///
 /// let result = in_definite::is_an("alien");
 ///
 /// assert_eq!(in_definite::Is::An, result);
@@ -94,7 +94,7 @@ pub fn get_a_or_an_options(word: &str, options: &Options) -> &'static str {
 ///
 /// assert_eq!(in_definite::Is::A, result);
 /// ```
-/// 
+///
 /// ```
 /// let result = in_definite::is_an("");
 ///
@@ -110,7 +110,7 @@ pub fn is_an(word: &str) -> Is {
 ///
 /// ```
 /// use in_definite;
-/// 
+///
 /// let result = in_definite::is_an_options("1800", &in_definite::Options::with_colloquial()); // 'eighteen hundred'
 ///
 /// assert_eq!(in_definite::Is::An, result);
@@ -132,8 +132,7 @@ pub fn is_an_options(word: &str, options: &Options) -> Is {
         return Is::None;
     }
 
-    if core_is_an::is_an_options_bool(word, options)
-    {
+    if core_is_an::is_an_options_bool(word, options) {
         return Is::An;
     }
 
