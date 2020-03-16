@@ -17,7 +17,7 @@ pub fn is_title_case(first_word: &str) -> bool {
 
 pub fn strip_end<'s>(word: &'s str, ending: &str) -> &'s str {
     if word.ends_with(ending) {
-        return &word[..(word.len() - ending.len())]
+        return &word[..(word.len() - ending.len())];
     }
 
     word

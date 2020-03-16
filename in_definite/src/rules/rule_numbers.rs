@@ -25,4 +25,3 @@ pub fn is_an_for_number(word: &str, options: &Options) -> bool {
 
     is_an
 }
-
