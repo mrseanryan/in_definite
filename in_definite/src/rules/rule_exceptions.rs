@@ -92,6 +92,8 @@ const EXCEPTIONS: &[&str] = &[
     "usual",
     "usurp",
     "usury",
+    "utah",
+    "utahn",
     "utensil",
     "uterus",
     "utility",

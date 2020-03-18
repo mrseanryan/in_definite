@@ -1,11 +1,8 @@
 ## [Unreleased] - ReleaseDate
 ### Added
-
-### Changed
+- Irregular words: Utah, utahn
 
 ## [0.2.2] - 2020-03-15
-### Added
-
 ### Changed
 - Minor internal cleaning up
 - Removed dependency on the `regex` crate

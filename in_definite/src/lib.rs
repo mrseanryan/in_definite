@@ -246,6 +246,8 @@ mod tests {
         test_u0: ("ukelele", "a"),
         test_u1: ("umbrella", "an"),
         test_u2: ("user", "a"),
+        test_u3: ("Utah", "A"),
+        test_u4: ("utahn", "a"),
         // numbers
         test_n0: ("0", "a"),
         test_n1: ("1", "a"),
