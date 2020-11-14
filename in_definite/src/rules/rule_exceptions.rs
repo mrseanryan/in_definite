@@ -143,5 +143,5 @@ const EXCEPTIONS: &[&str] = &[
     "n",
     "r",
     "s",
-    "x"
+    "x",
 ];
