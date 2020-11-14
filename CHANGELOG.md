@@ -1,5 +1,6 @@
 ## [Unreleased] - ReleaseDate
 ### Added
+- Irregular single letters: f, h, l, m, n, r, s, u, x
 
 ### Changed
 

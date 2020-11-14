@@ -134,4 +134,14 @@ const EXCEPTIONS: &[&str] = &[
     "ytterbous",
     "ytterbic",
     "yttric",
+    // Single letters
+    "u",
+    "f",
+    "h",
+    "l",
+    "m",
+    "n",
+    "r",
+    "s",
+    "x"
 ];
