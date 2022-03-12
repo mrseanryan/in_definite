@@ -1,7 +1,11 @@
--e ## [Unreleased] - ReleaseDate
+## [Unreleased] - ReleaseDate
 ### Added
 
 ### Changed
+
+## [0.2.5] - 2022-03-12
+### Changed
+- Improved the badges in the README
 
 ## [0.2.4] - 2020-11-14
 ### Added
