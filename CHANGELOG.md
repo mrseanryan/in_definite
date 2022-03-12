@@ -1,4 +1,4 @@
-## [Unreleased] - ReleaseDate
+## [0.2.5] - 2022-03-12
 ### Added
 
 ### Changed
