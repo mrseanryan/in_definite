@@ -12,5 +12,6 @@ cargo release --no-confirm
 popd
 
 ./_prepare-changelog.sh
+git push
 
 echo "Publishing [done]"
