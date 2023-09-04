@@ -17,7 +17,10 @@ pub fn is_title_case(first_word: &str) -> bool {
 
 pub fn strip_end<'s>(word: &'s str, ending: &str) -> &'s str {
     if word.ends_with(ending) {
-        return &word[..(word.len() - ending.len())];
+        let stripped = &word[..(word.len() - ending.len())];
+        if stripped.len() > 1 {
+            return stripped;
+        }
     }
 
     word
@@ -50,5 +53,7 @@ mod tests {
         assert_eq!("hour", strip_end("houred", "ed"));
         assert_eq!("hour", strip_end("hourly", "ly"));
         assert_eq!("hour", strip_end("hour's", "'s"));
+        // Do NOT strip work like 'red' down to one letter like 'r' as that would incorrectly handle the word as a single-letter exception:
+        assert_eq!("red", strip_end("red", "'red"));
     }
 }

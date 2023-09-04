@@ -91,6 +91,7 @@ const EXCEPTIONS: &[&str] = &[
     "user",
     "usual",
     "usurp",
+    "usurper",
     "usury",
     "utah",
     "utahn",
@@ -117,7 +118,6 @@ const EXCEPTIONS: &[&str] = &[
     "useful",
     "useless",
     "usurious",
-    "usurped",
     "utilitarian",
     "utopic",
     // Adverbs: u like y
