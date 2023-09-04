@@ -1,4 +1,11 @@
-## [Unreleased] - ReleaseDate\n### Added\n\n### Changed\n\n## [1.0.0] - 2023-09-04
+## [Unreleased] - ReleaseDate
+### Added
+
+
+### Changed
+
+
+## [1.0.0] - 2023-09-04
 ### Changed
 
 - Handle edge cases like 'a red rum'. Test both 'usurper' and 'usurped'.
