@@ -1,4 +1,4 @@
-## [1.0.0] - 2023-09-04
+## [Unreleased] - ReleaseDate
 ### Changed
 
 - Handle edge cases like 'a red rum'. Test both 'usurper' and 'usurped'.
