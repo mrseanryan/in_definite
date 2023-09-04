@@ -1,4 +1,4 @@
-## [Unreleased] - ReleaseDate
+## [Unreleased] - ReleaseDate\n### Added\n\n### Changed\n\n## [Unreleased] - ReleaseDate
 ### Added
 
 ### Changed
