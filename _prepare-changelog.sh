@@ -3,9 +3,21 @@ set -e
 
 input=CHANGELOG.md
 
+tmp=tmp/changelog.md.tmp
+
 echo "Preparing changelog ..."
 
-echo "## [Unreleased] - ReleaseDate\n### Added\n\n### Changed\n\n$(cat $input)" > $input
+echo "## [Unreleased] - ReleaseDate" > $tmp
+echo "### Added" >> $tmp
+echo "" >> $tmp
+echo "" >> $tmp
+echo "### Changed" >> $tmp
+echo "" >> $tmp
+echo "" >> $tmp
+
+cat $input >> $tmp
+
+cp $tmp $input
 
 git unstage
 git add $input
