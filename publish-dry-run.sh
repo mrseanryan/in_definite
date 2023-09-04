@@ -3,6 +3,6 @@ set -e
 
 pushd in_definite
 
-cargo release --dry-run
+cargo release
 
 popd
