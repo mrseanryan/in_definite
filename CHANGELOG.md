@@ -1,7 +1,8 @@
-## [Unreleased] - ReleaseDate
-### Added
-
+## [1.0.0] - 2023-09-04
 ### Changed
+
+- Handle edge cases like 'a red rum'. Test both 'usurper' and 'usurped'.
+- Release as 1.0.0 since is stable
 
 ## [0.2.5] - 2022-03-12
 ### Changed
