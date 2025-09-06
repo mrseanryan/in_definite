@@ -1,4 +1,4 @@
-## [Unreleased] - ReleaseDate
+## [1.1.2] - 2025-09-06
 ### Changed
 
 - Fix typo in README.
