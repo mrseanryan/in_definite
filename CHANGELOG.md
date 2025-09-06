@@ -1,9 +1,7 @@
 ## [Unreleased] - ReleaseDate
-### Added
-
-
 ### Changed
 
+- Add more silent 'h' exceptions: "honorific", "honorable", "honourable".
 
 ## [1.0.0] - 2023-09-04
 ### Changed
