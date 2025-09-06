@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e  # exit when any command fails
 
-./test.sh
+./pre-publish.sh
 
 echo "Publishing..."
 
 pushd in_definite
 
-cargo release --no-confirm --execute
+cargo release --no-confirm --execute  # Will stop if git has uncommitted changes.
 
 popd
 

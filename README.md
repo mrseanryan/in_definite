@@ -39,6 +39,8 @@ let result = in_definite::is_an("unicorn");
 assert_eq!(in_definite::Is::A, result);
 ```
 
+note: detecting plurals is not supported.
+
 ## Deviations from the original `indefinite`
 
 Upper/lower/mixed case handling: 
@@ -51,6 +53,24 @@ Adverbs:
 - Handles adverbs with '-ly' in a *generic* manner. Example: "a ubiquitously"
 
 A big thanks to the original authors of [indefinite](https://www.npmjs.com/package/indefinite)!
+
+## Usage
+
+- in_definite is a rust library, but this git repo alo includes a basic command line tool.
+
+See [in_definite_cmd_published](./tests_e2e/in_definite_cmd_published/) for the command line tool which consumes the library.
+
+```
+./go-published.sh umbrella
+```
+
+Output
+
+```
+= in_definite =
+===============
+an umbrella
+```
 
 ## Published @ crates.io
 
