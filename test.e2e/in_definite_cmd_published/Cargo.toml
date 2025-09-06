@@ -1,5 +1,5 @@
 [package]
-name = "in_definite_cmd"
+name = "in_definite_cmd_published"
 version = "0.1.0"
 authors = ["sean <str_ie@yahoo.co.uk>"]
 edition = "2018"
@@ -8,6 +8,6 @@ edition = "2018"
 
 [dependencies]
 # To use local build:
-# in_definite = { path = "../in_definite" }
+# in_definite = { path = "../../in_definite" }
 # To use published build:
-in_definite = "1"
+in_definite = "1.1.0"

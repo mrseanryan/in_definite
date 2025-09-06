@@ -2,5 +2,6 @@
 
 members = [
   "in_definite",
-  "in_definite_cmd",
+  "test.e2e/in_definite_cmd_local",
+  "test.e2e/in_definite_cmd_published",
 ]
