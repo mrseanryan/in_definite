@@ -13,8 +13,9 @@ Please try to:
 
 1. Add and review entries in the CHANGELOG.md.
   - do not edit `## [Unreleased] - ReleaseDate`, it will be automatically populated on publish.
-2. Run the e2e test, that consumes the local package: `./test.e2e.local.sh`.
-3. Run `publish-dry-run.sh` (this includes formatting and unit tests).
-4. Check the results. If all OK, then run `publish.sh` (this includes formatting and unit tests).
-5. Bump the version in the test harness - see [Cargo.toml](./tests_e2e/in_definite_cmd_published/Cargo.toml)
-6. Run the e2e test, that consumes the published package: `./test.e2e.published.sh`.
+2. Bump the version in [in_definite\Cargo.toml](./in_definite\Cargo.toml), following semantic versioning.
+3. Run the e2e test, that consumes the local package: `./test.e2e.local.sh`.
+4. Run `publish-dry-run.sh` (this includes formatting and unit tests).
+5. Check the results. If all OK, then run `publish.sh` (this includes formatting and unit tests).
+6. Bump the version in the test harness - see [Cargo.toml](./tests_e2e/in_definite_cmd_published/Cargo.toml)
+7. Run the e2e test, that consumes the published package: `./test.e2e.published.sh`.
