@@ -1,4 +1,4 @@
-## [Unreleased] - ReleaseDate
+## [1.1.0] - 2025-09-06
 ### Changed
 
 - Add more silent 'h' exceptions: "honorific", "honorable", "honourable".
