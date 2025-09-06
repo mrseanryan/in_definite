@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e  # exit when any command fails
 
-./pre-publish.sh
+./_pre-publish.sh
 
 pushd in_definite
 
