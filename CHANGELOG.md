@@ -1,9 +1,7 @@
 ## [Unreleased] - ReleaseDate
-### Added
-
-
 ### Changed
 
+- Fix typo in README.
 
 ## [1.1.1] - 2025-09-06
 ### Changed

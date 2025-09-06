@@ -56,7 +56,7 @@ A big thanks to the original authors of [indefinite](https://www.npmjs.com/packa
 
 ## Usage
 
-- in_definite is a rust library, but this git repo alo includes a basic command line tool.
+- in_definite is a rust library, but the git repository also includes a basic command line tool.
 
 See [in_definite_cmd_published](https://github.com/mrseanryan/in_definite/blob/master/tests_e2e/in_definite_cmd_published/) for the command line tool which consumes the library.
 
