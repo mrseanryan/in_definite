@@ -1,3 +1,5 @@
+#!/bin/bash
+set -e
 echo installing gcc linker and compiler...
 
 sudo apt-get update

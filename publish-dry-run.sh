@@ -1,5 +1,5 @@
-# exit when any command fails
-set -e
+#!/bin/bash
+set -e  # exit when any command fails
 
 pushd in_definite
 

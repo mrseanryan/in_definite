@@ -1,3 +1,5 @@
+#!/bin/bash
+set -e
 cargo install cargo-release
 
 echo "Adding cargo to the \$PATH variable"
