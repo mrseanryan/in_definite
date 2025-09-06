@@ -1,4 +1,4 @@
-## [Unreleased] - ReleaseDate
+## [1.1.1] - 2025-09-06
 ### Changed
 
 - Improved the README.
