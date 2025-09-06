@@ -439,7 +439,6 @@ mod tests {
         test_colloquial_ny1800: ("1800", "an"),
         test_colloquial_ny1892: ("1892", "an"),
         // single letters - irregular
-        test_single_irregular_u: ("u", "a"),
         test_single_irregular_f: ("f", "an"),
         test_single_irregular_h: ("h", "an"),
         test_single_irregular_l: ("l", "an"),
@@ -447,6 +446,7 @@ mod tests {
         test_single_irregular_n: ("n","an"),
         test_single_irregular_r: ("r", "an"),
         test_single_irregular_s: ("s", "an"),
+        test_single_irregular_u: ("u", "a"),
         test_single_irregular_x: ("x", "an"),
         // single letters - regular
         test_single_regular_a: ("a", "an"),

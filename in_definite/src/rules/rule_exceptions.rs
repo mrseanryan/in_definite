@@ -45,10 +45,14 @@ const EXCEPTIONS: &[&str] = &[
     "honesty",
     "honor",
     "honour",
+    "honoree",
     "hour",
     // Adjectives: silent h
     "honest",
     "honorous",
+    "honorific",
+    "honorable",
+    "honourable",
     // Adverbs: silent h
     "honestly",
     "hourly",
@@ -135,7 +139,6 @@ const EXCEPTIONS: &[&str] = &[
     "ytterbic",
     "yttric",
     // Single letters
-    "u",
     "f",
     "h",
     "l",
@@ -143,5 +146,6 @@ const EXCEPTIONS: &[&str] = &[
     "n",
     "r",
     "s",
+    "u",
     "x",
 ];
